@@ -561,7 +561,7 @@ app.get('/', (c) => {
                 <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
                     <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
                         <i class="fas fa-exchange-alt mr-2"></i>
-                        <span id="realTimeExchangeButton">실시간 환전하기</span>
+                        <span id="realTimeExchangeButton">실시간 환전</span>
                     </a>
                     <button onclick="scrollToCalculator()" class="btn-primary bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-lg transition border-2 border-white" id="heroButton">
                         환율 계산기
@@ -723,7 +723,7 @@ app.get('/', (c) => {
               headerTitle: '크로스보더',
               heroTitle: '한중 정산의 새로운 기준',
               heroSubtitle: '빠르고 안전한 크로스보더 결제 서비스',
-              realTimeExchangeButton: '실시간 환전하기',
+              realTimeExchangeButton: '실시간 환전',
               heroButton: '환율 계산기',
               featuresTitle: '서비스 특징',
               feature1Title: '신속한 처리',
