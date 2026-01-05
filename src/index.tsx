@@ -6,6 +6,10 @@ const app = new Hono()
 // Serve static files
 app.use('/static/*', serveStatic({ root: './public' }))
 app.use('/faq-data.json', serveStatic({ root: './public' }))
+app.use('/index-en.html', serveStatic({ root: './' }))
+app.use('/index-zh.html', serveStatic({ root: './' }))
+app.use('/en/*', serveStatic({ root: './' }))
+app.use('/zh/*', serveStatic({ root: './' }))
 
 
 app.get('/exchange', (c) => {
