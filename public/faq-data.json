@@ -1,0 +1,359 @@
+{
+  "meta": {
+    "defaultLanguage": "ko",
+    "supportedLanguages": ["ko", "en", "zh"],
+    "pageSize": 10
+  },
+  "faq": [
+    {
+      "id": "faq_001",
+      "category": "service",
+      "title": {
+        "ko": "이 서비스는 해외송금 서비스인가요?",
+        "en": "Is this a remittance service?",
+        "zh": "这是汇款服务吗？"
+      },
+      "content": {
+        "ko": "아닙니다. 본 서비스는 외국환 송금이 아닌, 이용자 간 거래에 따른 대금 정산 및 지급 요청을 중개하는 플랫폼입니다.",
+        "en": "No. This service is not a foreign remittance service, but a platform that intermediates settlement of transaction payments between users.",
+        "zh": "不是。本服务不是外汇汇款服务，而是中介用户之间交易结算和支付请求的平台。"
+      }
+    },
+    {
+      "id": "faq_002",
+      "category": "service",
+      "title": {
+        "ko": "은행 송금과 어떤 점이 다른가요?",
+        "en": "How is it different from bank transfers?",
+        "zh": "与银行转账有何不同？"
+      },
+      "content": {
+        "ko": "은행을 통한 직접 송금이 아니라, 에스크로 기반 정산 후 지급대행 파트너를 통해 지급되는 구조입니다.",
+        "en": "It is not a direct transfer through a bank, but a structure in which payment is made through a payment agency partner after escrow-based settlement.",
+        "zh": "不是通过银行直接转账，而是通过托管结算后通过支付代理合作伙伴支付的结构。"
+      }
+    },
+    {
+      "id": "faq_003",
+      "category": "service",
+      "title": {
+        "ko": "한국-중국 간 어떤 거래에 사용할 수 있나요?",
+        "en": "What transactions can be used between Korea and China?",
+        "zh": "可以用于韩国和中国之间的哪些交易？"
+      },
+      "content": {
+        "ko": "프리랜서 용역비, 상품 공급 대금, 생활비·학비 등 실제 거래 목적이 있는 정산에 한해 사용 가능합니다.",
+        "en": "It can be used for settlements with actual transaction purposes such as freelancer fees, product supply payments, living expenses, and tuition fees.",
+        "zh": "可用于自由职业者费用、商品供应付款、生活费和学费等实际交易目的的结算。"
+      }
+    },
+    {
+      "id": "faq_004",
+      "category": "service",
+      "title": {
+        "ko": "개인도 이용할 수 있나요?",
+        "en": "Can individuals use it?",
+        "zh": "个人可以使用吗？"
+      },
+      "content": {
+        "ko": "네. 개인, 프리랜서, 법인 모두 이용 가능하나 유형별 한도와 조건이 다릅니다.",
+        "en": "Yes. Individuals, freelancers, and corporations can all use it, but the limits and conditions differ by type.",
+        "zh": "是的。个人、自由职业者和企业均可使用，但根据类型的限额和条件有所不同。"
+      }
+    },
+    {
+      "id": "faq_005",
+      "category": "limit",
+      "title": {
+        "ko": "개인 이용자의 1회 이용 한도는 얼마인가요?",
+        "en": "What is the per-transaction limit for individual users?",
+        "zh": "个人用户的单次使用限额是多少？"
+      },
+      "content": {
+        "ko": "기본적으로 1회 최대 100만 원이며, 인증 단계에 따라 상향될 수 있습니다.",
+        "en": "Basically, the maximum is KRW 1 million per transaction, and it can be increased depending on the authentication level.",
+        "zh": "基本上每次最多100万韩元，可根据认证级别提高。"
+      }
+    },
+    {
+      "id": "faq_006",
+      "category": "limit",
+      "title": {
+        "ko": "개인의 월 이용 한도는 얼마인가요?",
+        "en": "What is the monthly limit for individuals?",
+        "zh": "个人的月度限额是多少？"
+      },
+      "content": {
+        "ko": "초기 MVP 기준 월 300만 원~500만 원으로 설정됩니다.",
+        "en": "Based on the initial MVP, it is set at KRW 3-5 million per month.",
+        "zh": "基于初始MVP，设定为每月300万至500万韩元。"
+      }
+    },
+    {
+      "id": "faq_007",
+      "category": "limit",
+      "title": {
+        "ko": "프리랜서 정산 한도는 어떻게 되나요?",
+        "en": "What is the settlement limit for freelancers?",
+        "zh": "自由职业者的结算限额是多少？"
+      },
+      "content": {
+        "ko": "1건당 300만~1,000만 원, 월 최대 3,000만 원까지 가능합니다.",
+        "en": "KRW 3-10 million per transaction, up to KRW 30 million per month.",
+        "zh": "每笔300万至1000万韩元，每月最高3000万韩元。"
+      }
+    },
+    {
+      "id": "faq_008",
+      "category": "limit",
+      "title": {
+        "ko": "법인 거래에는 한도가 없나요?",
+        "en": "Is there no limit for corporate transactions?",
+        "zh": "企业交易没有限额吗？"
+      },
+      "content": {
+        "ko": "법인은 계약 기반 정산으로 별도 승인 절차 후 진행되며, 고정 한도는 적용되지 않습니다.",
+        "en": "Corporations are settled based on contracts and proceed after a separate approval process, and fixed limits do not apply.",
+        "zh": "企业基于合同结算，经过单独批准程序后进行，不适用固定限额。"
+      }
+    },
+    {
+      "id": "faq_009",
+      "category": "limit",
+      "title": {
+        "ko": "한도는 고정인가요?",
+        "en": "Are the limits fixed?",
+        "zh": "限额是固定的吗？"
+      },
+      "content": {
+        "ko": "아닙니다. AML/FDS 정책에 따라 사전 고지 없이 조정될 수 있습니다.",
+        "en": "No. It may be adjusted without prior notice according to AML/FDS policies.",
+        "zh": "不是。根据AML/FDS政策可以在不事先通知的情况下进行调整。"
+      }
+    },
+    {
+      "id": "faq_010",
+      "category": "fee",
+      "title": {
+        "ko": "수수료는 어떻게 구성되나요?",
+        "en": "How are the fees structured?",
+        "zh": "费用如何构成？"
+      },
+      "content": {
+        "ko": "플랫폼 이용 수수료와 환율 스프레드로 구성됩니다.",
+        "en": "It consists of platform usage fees and exchange rate spreads.",
+        "zh": "由平台使用费和汇率价差组成。"
+      }
+    },
+    {
+      "id": "faq_011",
+      "category": "fee",
+      "title": {
+        "ko": "개인 이용자의 수수료는 얼마인가요?",
+        "en": "What are the fees for individual users?",
+        "zh": "个人用户的费用是多少？"
+      },
+      "content": {
+        "ko": "평균적으로 1~2% 수준이며, 환율 스프레드는 약 0.5% 내외입니다.",
+        "en": "On average, it is around 1-2%, and the exchange rate spread is around 0.5%.",
+        "zh": "平均约为1-2%，汇率价差约为0.5%左右。"
+      }
+    },
+    {
+      "id": "faq_012",
+      "category": "fee",
+      "title": {
+        "ko": "프리랜서·셀러 정산 수수료는요?",
+        "en": "What about settlement fees for freelancers and sellers?",
+        "zh": "自由职业者和卖家的结算费用呢？"
+      },
+      "content": {
+        "ko": "거래 금액의 3~6% 범위 내에서 적용됩니다.",
+        "en": "It is applied within the range of 3-6% of the transaction amount.",
+        "zh": "适用于交易金额的3-6%范围内。"
+      }
+    },
+    {
+      "id": "faq_013",
+      "category": "fee",
+      "title": {
+        "ko": "환율은 어떻게 적용되나요?",
+        "en": "How is the exchange rate applied?",
+        "zh": "汇率如何适用？"
+      },
+      "content": {
+        "ko": "외부 환율 API를 기반으로 실시간 환율이 반영됩니다.",
+        "en": "Real-time exchange rates are reflected based on external exchange rate APIs.",
+        "zh": "基于外部汇率API反映实时汇率。"
+      }
+    },
+    {
+      "id": "faq_014",
+      "category": "payment",
+      "title": {
+        "ko": "중국에서는 어떻게 지급되나요?",
+        "en": "How is payment made in China?",
+        "zh": "在中国如何支付？"
+      },
+      "content": {
+        "ko": "중국 현지 지급대행 파트너를 통해 Alipay 또는 WeChat Pay로 지급됩니다.",
+        "en": "Payment is made through Alipay or WeChat Pay through a local payment agency partner in China.",
+        "zh": "通过中国本地支付代理合作伙伴通过支付宝或微信支付支付。"
+      }
+    },
+    {
+      "id": "faq_015",
+      "category": "payment",
+      "title": {
+        "ko": "중국 개인 계정으로 받을 수 있나요?",
+        "en": "Can I receive it to a Chinese personal account?",
+        "zh": "可以接收到中国个人账户吗？"
+      },
+      "content": {
+        "ko": "가능합니다. 단, 연간 미화 5만 달러 상당 한도가 적용됩니다.",
+        "en": "Yes. However, an annual limit of USD 50,000 equivalent applies.",
+        "zh": "可以。但是，适用年度5万美元的限额。"
+      }
+    },
+    {
+      "id": "faq_016",
+      "category": "payment",
+      "title": {
+        "ko": "지급이 실패하면 어떻게 되나요?",
+        "en": "What happens if payment fails?",
+        "zh": "如果支付失败怎么办？"
+      },
+      "content": {
+        "ko": "지급 실패 시 재처리 절차를 거치며, 필요 시 거래가 보류 또는 취소될 수 있습니다.",
+        "en": "In case of payment failure, a reprocessing procedure is performed, and the transaction may be suspended or canceled if necessary.",
+        "zh": "如果支付失败，将进行重新处理程序，必要时可以暂停或取消交易。"
+      }
+    },
+    {
+      "id": "faq_017",
+      "category": "regulation",
+      "title": {
+        "ko": "외환업 인가가 필요한 서비스인가요?",
+        "en": "Is this a service that requires foreign exchange business authorization?",
+        "zh": "这是需要外汇业务授权的服务吗？"
+      },
+      "content": {
+        "ko": "아닙니다. 본 서비스는 직접 송금을 수행하지 않으므로 외환업 인가 대상이 아닙니다.",
+        "en": "No. This service does not perform direct remittances and is not subject to foreign exchange business authorization.",
+        "zh": "不是。本服务不进行直接汇款，因此不属于外汇业务授权的对象。"
+      }
+    },
+    {
+      "id": "faq_018",
+      "category": "regulation",
+      "title": {
+        "ko": "자금세탁방지(AML)는 어떻게 하나요?",
+        "en": "How do you prevent money laundering (AML)?",
+        "zh": "如何防止洗钱(AML)？"
+      },
+      "content": {
+        "ko": "소액 한도, 거래 패턴 분석, 반복 분할 거래 탐지를 통해 관리합니다.",
+        "en": "It is managed through small amount limits, transaction pattern analysis, and detection of repeated split transactions.",
+        "zh": "通过小额限额、交易模式分析和检测重复拆分交易进行管理。"
+      }
+    },
+    {
+      "id": "faq_019",
+      "category": "regulation",
+      "title": {
+        "ko": "KYC 인증은 필수인가요?",
+        "en": "Is KYC verification required?",
+        "zh": "KYC验证是必需的吗？"
+      },
+      "content": {
+        "ko": "기본 이용은 가능하나, 한도 상향 및 지속 이용을 위해 KYC가 필요합니다.",
+        "en": "Basic use is possible, but KYC is required to increase limits and continue use.",
+        "zh": "基本使用是可以的，但需要KYC才能提高限额并继续使用。"
+      }
+    },
+    {
+      "id": "faq_020",
+      "category": "regulation",
+      "title": {
+        "ko": "거래가 차단될 수도 있나요?",
+        "en": "Can transactions be blocked?",
+        "zh": "交易可以被阻止吗？"
+      },
+      "content": {
+        "ko": "네. 허위 정보 제출, 목적 불분명 거래, 규제 위반 우려 시 차단될 수 있습니다.",
+        "en": "Yes. It may be blocked if false information is submitted, the purpose of the transaction is unclear, or there is a concern of regulatory violation.",
+        "zh": "是的。如果提交虚假信息、交易目的不明确或担心违反法规，可能会被阻止。"
+      }
+    },
+    {
+      "id": "faq_021",
+      "category": "responsibility",
+      "title": {
+        "ko": "회사가 제 자금을 보관하나요?",
+        "en": "Does the company hold my funds?",
+        "zh": "公司保管我的资金吗？"
+      },
+      "content": {
+        "ko": "아닙니다. 회사는 자금을 직접 보관하지 않으며, 정산 요청만 중개합니다.",
+        "en": "No. The company does not directly hold funds and only mediates settlement requests.",
+        "zh": "不是。公司不直接保管资金，只中介结算请求。"
+      }
+    },
+    {
+      "id": "faq_022",
+      "category": "responsibility",
+      "title": {
+        "ko": "중국 규제 위반 책임은 누가 지나요?",
+        "en": "Who is responsible for violating Chinese regulations?",
+        "zh": "谁对违反中国法规负责？"
+      },
+      "content": {
+        "ko": "이용자의 거래 목적 및 수취 적합성에 대한 최종 책임은 이용자에게 있습니다.",
+        "en": "The final responsibility for the user's transaction purpose and receipt suitability lies with the user.",
+        "zh": "用户对交易目的和接收适用性的最终责任由用户承担。"
+      }
+    },
+    {
+      "id": "faq_023",
+      "category": "responsibility",
+      "title": {
+        "ko": "송금 지연이 발생할 수 있나요?",
+        "en": "Can remittance delays occur?",
+        "zh": "汇款会延迟吗？"
+      },
+      "content": {
+        "ko": "네. 파트너 지급 상황, 현지 규제, 확인 절차에 따라 지연될 수 있습니다.",
+        "en": "Yes. It may be delayed depending on partner payment status, local regulations, and verification procedures.",
+        "zh": "是的。根据合作伙伴支付状态、当地法规和验证程序可能会延迟。"
+      }
+    },
+    {
+      "id": "faq_024",
+      "category": "expansion",
+      "title": {
+        "ko": "이 서비스는 어떤 단계로 확장되나요?",
+        "en": "How does this service expand?",
+        "zh": "此服务如何扩展？"
+      },
+      "content": {
+        "ko": "MVP → 실증특례 → 한도 상향 및 법인 거래 확대 단계로 확장됩니다.",
+        "en": "It expands from MVP → Regulatory Sandbox → Limit increase and corporate transaction expansion stages.",
+        "zh": "从MVP→监管沙箱→限额提高和企业交易扩展阶段扩展。"
+      }
+    },
+    {
+      "id": "faq_025",
+      "category": "expansion",
+      "title": {
+        "ko": "정부·금융 샌드박스 대상 서비스인가요?",
+        "en": "Is this a service subject to government/financial sandbox?",
+        "zh": "这是受政府/金融沙箱约束的服务吗？"
+      },
+      "content": {
+        "ko": "네. 거래 기반 정산 모델로 샌드박스 실증특례 신청이 가능한 구조입니다.",
+        "en": "Yes. It is a structure that can apply for regulatory sandbox special cases with a transaction-based settlement model.",
+        "zh": "是的。这是一个可以申请基于交易结算模型的监管沙箱特殊情况的结构。"
+      }
+    }
+  ]
+}
