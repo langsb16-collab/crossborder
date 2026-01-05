@@ -1,0 +1,22 @@
+name = "crossborder"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "./dist"
+
+[build]
+command = "npm run build"
+
+[[routes]]
+pattern = "/index-en.html"
+custom = false
+
+[[routes]]
+pattern = "/index-zh.html"
+custom = false
+
+[[routes]]
+pattern = "/en/*"
+custom = false
+
+[[routes]]
+pattern = "/zh/*"
+custom = false
