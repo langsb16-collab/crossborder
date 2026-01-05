@@ -556,16 +556,49 @@ app.get('/', (c) => {
         <!-- Hero Section - 간결하게 -->
         <section class="hero-gradient text-white py-12 md:py-16">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4" id="heroTitle">한중 정산의 새로운 기준</h2>
-                <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line" id="heroSubtitle">빠르고 안전한 크로스보더 결제 서비스</p>
-                <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                    <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
-                        <i class="fas fa-exchange-alt mr-2"></i>
-                        <span id="realTimeExchangeButton">실시간 환전</span>
-                    </a>
-                    <button onclick="scrollToCalculator()" class="btn-primary bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-lg transition border-2 border-white" id="heroButton">
-                        환율 계산기
-                    </button>
+                <!-- Korean -->
+                <div class="lang-content" data-lang="ko">
+                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">한중 정산의 새로운 기준</h2>
+                    <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line">빠르고 안전한 크로스보더 결제 서비스</p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                        <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
+                            <i class="fas fa-exchange-alt mr-2"></i>
+                            <span>실시간 환전</span>
+                        </a>
+                        <button onclick="scrollToCalculator()" class="btn-primary bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-lg transition border-2 border-white">
+                            환율 계산기
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- English -->
+                <div class="lang-content" data-lang="en" style="display:none">
+                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">New Standard for Korea-China Settlement</h2>
+                    <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line">Fast & Secure Cross-Border Payment</p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                        <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
+                            <i class="fas fa-exchange-alt mr-2"></i>
+                            <span>Real-Time Exchange</span>
+                        </a>
+                        <button onclick="scrollToCalculator()" class="btn-primary bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-lg transition border-2 border-white">
+                            Exchange Rate Calculator
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Chinese -->
+                <div class="lang-content" data-lang="zh" style="display:none">
+                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">韩中结算的新标准</h2>
+                    <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line">快速安全的跨境支付</p>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                        <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
+                            <i class="fas fa-exchange-alt mr-2"></i>
+                            <span>实时兑换</span>
+                        </a>
+                        <button onclick="scrollToCalculator()" class="btn-primary bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-lg transition border-2 border-white">
+                            汇率计算器
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -940,7 +973,16 @@ app.get('/', (c) => {
           function changeLanguage(lang) {
             const trans = translations[lang];
             
-            // Update all text elements
+            // Show/hide language content blocks
+            document.querySelectorAll('.lang-content').forEach(el => {
+              if (el.getAttribute('data-lang') === lang) {
+                el.style.display = 'block';
+              } else {
+                el.style.display = 'none';
+              }
+            });
+            
+            // Update all text elements with IDs
             Object.keys(trans).forEach(key => {
               const element = document.getElementById(key);
               if (element) {
