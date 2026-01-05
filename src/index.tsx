@@ -330,6 +330,24 @@ app.get('/', (c) => {
             background: rgba(255,255,255,0.2);
           }
           
+          /* 플랫폼 언어 선택 - 진청색 배경 */
+          #globalLang {
+            background: #0F172A !important;
+            border: 1px solid #1E293B !important;
+            color: white !important;
+            font-weight: 600;
+          }
+          
+          #globalLang option {
+            background: #0F172A;
+            color: white;
+          }
+          
+          #globalLang:focus {
+            outline: 2px solid var(--color-accent);
+            background: #1E293B !important;
+          }
+          
           /* 챗봇 언어 선택 - 진청색 배경 */
           #chatLang {
             background: #0F172A !important;
@@ -968,8 +986,14 @@ app.get('/', (c) => {
           // Initialize
           document.addEventListener('DOMContentLoaded', () => {
             const defaultLang = 'ko';
+            globalLang = defaultLang;
+            chatLang = defaultLang;
             document.getElementById('globalLang').value = defaultLang;
             document.getElementById('chatLang').value = defaultLang;
+            changeLanguage(defaultLang);
+            if (faqData) {
+              renderFAQ();
+            }
           });
         </script>
     </body>
