@@ -391,23 +391,25 @@ app.get('/', (c) => {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 56px;
-            height: 56px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
-            background: var(--color-accent);
+            background: #0F172A;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 16px rgba(255, 122, 0, 0.4);
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.6);
             transition: all 0.3s ease;
             z-index: 1000;
+            border: 2px solid #1E293B;
           }
           
           .chatbot-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(255, 122, 0, 0.5);
+            transform: scale(1.1);
+            box-shadow: 0 6px 24px rgba(15, 23, 42, 0.8);
+            background: #1E293B;
           }
           
           /* 챗봇 패널 */
@@ -721,7 +723,7 @@ app.get('/', (c) => {
 
         <!-- Chatbot Button -->
         <div class="chatbot-button" onclick="toggleChatbot()">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="32" height="32">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="40" height="40">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
                 <circle cx="8.5" cy="11" r="1.5" fill="#00D9FF"/>
                 <circle cx="15.5" cy="11" r="1.5" fill="#00D9FF"/>
