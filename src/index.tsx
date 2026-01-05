@@ -1,15 +1,38 @@
 import { Hono } from 'hono'
 import { serveStatic } from 'hono/cloudflare-workers'
+import indexEnHtml from '../public/index-en.html?raw'
+import indexZhHtml from '../public/index-zh.html?raw'
+import enKrwUsdHtml from '../public/en/exchange-krw-usd.html?raw'
+import enCnyUsdHtml from '../public/en/exchange-cny-usd.html?raw'
+import enKrwUsdtHtml from '../public/en/exchange-krw-usdt.html?raw'
+import enCnyUsdtHtml from '../public/en/exchange-cny-usdt.html?raw'
+import zhKrwUsdHtml from '../public/zh/exchange-krw-usd.html?raw'
+import zhCnyUsdHtml from '../public/zh/exchange-cny-usd.html?raw'
+import zhKrwUsdtHtml from '../public/zh/exchange-krw-usdt.html?raw'
+import zhCnyUsdtHtml from '../public/zh/exchange-cny-usdt.html?raw'
 
 const app = new Hono()
 
-// Serve static files
-app.use('/static/*', serveStatic({ root: './public' }))
-app.use('/faq-data.json', serveStatic({ root: './public' }))
-app.use('/index-en.html', serveStatic({ root: './' }))
-app.use('/index-zh.html', serveStatic({ root: './' }))
-app.use('/en/*', serveStatic({ root: './' }))
-app.use('/zh/*', serveStatic({ root: './' }))
+// Serve static files (from dist after build)
+app.use('/static/*', serveStatic({ root: './' }))
+app.use('/faq-data.json', serveStatic({ root: './' }))
+app.use('/chatbot-icon.png', serveStatic({ root: './' }))
+
+// Language-specific main pages (HTML)
+app.get('/index-en.html', (c) => c.html(indexEnHtml))
+app.get('/index-zh.html', (c) => c.html(indexZhHtml))
+
+// English exchange pages
+app.get('/en/exchange-krw-usd.html', (c) => c.html(enKrwUsdHtml))
+app.get('/en/exchange-cny-usd.html', (c) => c.html(enCnyUsdHtml))
+app.get('/en/exchange-krw-usdt.html', (c) => c.html(enKrwUsdtHtml))
+app.get('/en/exchange-cny-usdt.html', (c) => c.html(enCnyUsdtHtml))
+
+// Chinese exchange pages
+app.get('/zh/exchange-krw-usd.html', (c) => c.html(zhKrwUsdHtml))
+app.get('/zh/exchange-cny-usd.html', (c) => c.html(zhCnyUsdHtml))
+app.get('/zh/exchange-krw-usdt.html', (c) => c.html(zhKrwUsdtHtml))
+app.get('/zh/exchange-cny-usdt.html', (c) => c.html(zhCnyUsdtHtml))
 
 
 app.get('/exchange', (c) => {
