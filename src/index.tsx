@@ -127,7 +127,7 @@ app.get('/exchange', (c) => {
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                     <i class="fas fa-exchange-alt text-xl text-orange-400"></i>
-                    <h1 class="text-lg font-bold">크로스보더</h1>
+                    <h1 class="text-lg font-bold" id="headerTitle">크로스보더</h1>
                 </div>
                 <div class="flex items-center space-x-2">
                     <i class="fas fa-globe text-sm"></i>
@@ -186,10 +186,10 @@ app.get('/exchange', (c) => {
                 <div class="mb-4">
                     <label class="block text-gray-700 font-semibold mb-2 text-sm" id="receiveCurrencyLabel">받을 통화</label>
                     <select id="toCurrency" class="currency-select w-full px-4 py-3 text-base font-semibold border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                        <option value="USD">USD (달러)</option>
-                        <option value="USDT">USDT (테더)</option>
-                        <option value="KRW">KRW (원화)</option>
-                        <option value="CNY">CNY (위안화)</option>
+                        <option value="USD" data-ko="USD (달러)" data-en="USD (Dollar)" data-zh="USD (美元)">USD (달러)</option>
+                        <option value="USDT" data-ko="USDT (테더)" data-en="USDT (Tether)" data-zh="USDT (泰达币)">USDT (테더)</option>
+                        <option value="KRW" data-ko="KRW (원화)" data-en="KRW (Won)" data-zh="KRW (韩元)">KRW (원화)</option>
+                        <option value="CNY" data-ko="CNY (위안화)" data-en="CNY (Yuan)" data-zh="CNY (人民币)">CNY (위안화)</option>
                     </select>
                 </div>
 
@@ -200,17 +200,17 @@ app.get('/exchange', (c) => {
                         <div class="network-option selected" onclick="selectNetwork('TRC20')" data-network="TRC20">
                             <div class="font-semibold text-sm mb-1">TRC20</div>
                             <div class="text-xs text-gray-600">~$1.5</div>
-                            <div class="text-xs text-green-600 mt-1">권장</div>
+                            <div class="text-xs text-green-600 mt-1" id="network1Label">권장</div>
                         </div>
                         <div class="network-option" onclick="selectNetwork('BEP20')" data-network="BEP20">
                             <div class="font-semibold text-sm mb-1">BEP20</div>
                             <div class="text-xs text-gray-600">~$0.5</div>
-                            <div class="text-xs text-gray-600 mt-1">저렴</div>
+                            <div class="text-xs text-gray-600 mt-1" id="network2Label">저렴</div>
                         </div>
                         <div class="network-option" onclick="selectNetwork('ERC20')" data-network="ERC20">
                             <div class="font-semibold text-sm mb-1">ERC20</div>
                             <div class="text-xs text-gray-600">~$15</div>
-                            <div class="text-xs text-orange-600 mt-1">고가</div>
+                            <div class="text-xs text-orange-600 mt-1" id="network3Label">고가</div>
                         </div>
                     </div>
                 </div>
@@ -268,19 +268,19 @@ app.get('/exchange', (c) => {
             <div class="grid grid-cols-2 gap-2 mb-6">
                 <button onclick="quickScenario('KRW', 'USD')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
                     <div class="font-semibold text-sm mb-1">KRW → USD</div>
-                    <div class="text-xs text-gray-600">원화를 달러로</div>
+                    <div class="text-xs text-gray-600" id="scenario1Desc">원화를 달러로</div>
                 </button>
                 <button onclick="quickScenario('CNY', 'USD')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
                     <div class="font-semibold text-sm mb-1">CNY → USD</div>
-                    <div class="text-xs text-gray-600">위안을 달러로</div>
+                    <div class="text-xs text-gray-600" id="scenario2Desc">위안을 달러로</div>
                 </button>
                 <button onclick="quickScenario('KRW', 'USDT')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
                     <div class="font-semibold text-sm mb-1">KRW → USDT</div>
-                    <div class="text-xs text-gray-600">원화를 테더로</div>
+                    <div class="text-xs text-gray-600" id="scenario3Desc">원화를 테더로</div>
                 </button>
                 <button onclick="quickScenario('CNY', 'USDT')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
                     <div class="font-semibold text-sm mb-1">CNY → USDT</div>
-                    <div class="text-xs text-gray-600">위안을 테더로</div>
+                    <div class="text-xs text-gray-600" id="scenario4Desc">위안을 테더로</div>
                 </button>
             </div>
 
@@ -304,19 +304,19 @@ app.get('/exchange', (c) => {
 
             <div class="bg-gray-50 rounded-lg p-4 mb-4">
                 <div class="flex justify-between mb-2">
-                    <span class="text-sm text-gray-600">보낼 금액</span>
+                    <span class="text-sm text-gray-600" id="confirmSendLabel">보낼 금액</span>
                     <span class="font-semibold" id="confirmSendAmount">1,000,000 KRW</span>
                 </div>
                 <div class="flex justify-between mb-2">
-                    <span class="text-sm text-gray-600">받을 금액</span>
+                    <span class="text-sm text-gray-600" id="confirmReceiveLabel">받을 금액</span>
                     <span class="font-bold text-lg text-green-600" id="confirmReceiveAmount">742.30 USD</span>
                 </div>
                 <div class="flex justify-between mb-2">
-                    <span class="text-sm text-gray-600">환율</span>
+                    <span class="text-sm text-gray-600" id="confirmRateLabel">환율</span>
                     <span class="text-sm" id="confirmRate">1,345.20</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-sm text-gray-600">총 수수료</span>
+                    <span class="text-sm text-gray-600" id="confirmFeeLabel">총 수수료</span>
                     <span class="text-sm text-orange-600" id="confirmFee">12,000 KRW</span>
                 </div>
             </div>
@@ -339,14 +339,18 @@ app.get('/exchange', (c) => {
       let currentRates = {};
       let calculationResult = null;
 
-      // Translations
+      // Complete Translations
       const translations = {
         ko: {
+          headerTitle: '크로스보더',
           exchangeTitle: '실시간 환전 · USDT 거래',
           liveLabel: 'LIVE',
           sendAmountLabel: '보낼 금액',
           receiveCurrencyLabel: '받을 통화',
           networkLabel: '네트워크 선택',
+          network1Label: '권장',
+          network2Label: '저렴',
+          network3Label: '고가',
           rateLabel: '환율',
           feeLabel: '수수료 (0.8% + 0.2%)',
           networkFeeLabel: '네트워크 수수료',
@@ -354,18 +358,30 @@ app.get('/exchange', (c) => {
           lastUpdateLabel: '마지막 업데이트',
           actionButton: '지금 거래하기',
           regulationNotice: '본 플랫폼은 한국·중국 규제 기준을 자동 적용합니다',
+          scenario1Desc: '원화를 달러로',
+          scenario2Desc: '위안을 달러로',
+          scenario3Desc: '원화를 테더로',
+          scenario4Desc: '위안을 테더로',
           rateSource: '환율 출처: 실시간 국제 금융시장 데이터',
           confirmTitle: '거래 최종 확인',
           confirmSubtitle: '아래 내용을 확인해주세요',
+          confirmSendLabel: '보낼 금액',
+          confirmReceiveLabel: '받을 금액',
+          confirmRateLabel: '환율',
+          confirmFeeLabel: '총 수수료',
           cancelButton: '취소',
           confirmButton: '확인'
         },
         en: {
+          headerTitle: 'CrossBorder',
           exchangeTitle: 'Real-time Exchange · USDT Trading',
           liveLabel: 'LIVE',
           sendAmountLabel: 'Send Amount',
           receiveCurrencyLabel: 'Receive Currency',
           networkLabel: 'Network Selection',
+          network1Label: 'Recommended',
+          network2Label: 'Cheap',
+          network3Label: 'Expensive',
           rateLabel: 'Rate',
           feeLabel: 'Fee (0.8% + 0.2%)',
           networkFeeLabel: 'Network Fee',
@@ -373,18 +389,30 @@ app.get('/exchange', (c) => {
           lastUpdateLabel: 'Last Update',
           actionButton: 'Trade Now',
           regulationNotice: 'Korea·China regulations automatically applied',
+          scenario1Desc: 'Won to Dollar',
+          scenario2Desc: 'Yuan to Dollar',
+          scenario3Desc: 'Won to Tether',
+          scenario4Desc: 'Yuan to Tether',
           rateSource: 'Rate Source: Real-time International Financial Market',
           confirmTitle: 'Confirm Transaction',
           confirmSubtitle: 'Please review the details',
+          confirmSendLabel: 'Send Amount',
+          confirmReceiveLabel: 'Receive Amount',
+          confirmRateLabel: 'Exchange Rate',
+          confirmFeeLabel: 'Total Fee',
           cancelButton: 'Cancel',
           confirmButton: 'Confirm'
         },
         zh: {
+          headerTitle: '跨境支付',
           exchangeTitle: '实时兑换 · USDT 交易',
           liveLabel: '实时',
           sendAmountLabel: '发送金额',
           receiveCurrencyLabel: '接收货币',
           networkLabel: '网络选择',
+          network1Label: '推荐',
+          network2Label: '便宜',
+          network3Label: '昂贵',
           rateLabel: '汇率',
           feeLabel: '手续费 (0.8% + 0.2%)',
           networkFeeLabel: '网络费用',
@@ -392,9 +420,17 @@ app.get('/exchange', (c) => {
           lastUpdateLabel: '最后更新',
           actionButton: '立即交易',
           regulationNotice: '本平台自动应用韩国·中国监管标准',
+          scenario1Desc: '韩元兑美元',
+          scenario2Desc: '人民币兑美元',
+          scenario3Desc: '韩元兑泰达币',
+          scenario4Desc: '人民币兑泰达币',
           rateSource: '汇率来源：实时国际金融市场数据',
           confirmTitle: '确认交易',
           confirmSubtitle: '请确认以下详情',
+          confirmSendLabel: '发送金额',
+          confirmReceiveLabel: '接收金额',
+          confirmRateLabel: '汇率',
+          confirmFeeLabel: '总手续费',
           cancelButton: '取消',
           confirmButton: '确认'
         }
@@ -402,12 +438,10 @@ app.get('/exchange', (c) => {
 
       // Initialize
       document.addEventListener('DOMContentLoaded', () => {
-        // Read URL parameters for scenario selection
         const urlParams = new URLSearchParams(window.location.search);
         const fromParam = urlParams.get('from');
         const toParam = urlParams.get('to');
         
-        // Set currencies from URL if provided
         if (fromParam) {
           const fromSelect = document.getElementById('fromCurrency');
           if (fromSelect) fromSelect.value = fromParam.toUpperCase();
@@ -417,22 +451,20 @@ app.get('/exchange', (c) => {
           if (toSelect) toSelect.value = toParam.toUpperCase();
         }
         
-        // Check USDT network after setting currencies
         checkUSDTNetwork();
-        
         loadRates();
         setupListeners();
-        setInterval(loadRates, 3000); // Update every 3 seconds for real-time feel
+        setInterval(loadRates, 3000);
         
-        // Add visual pulse animation to LIVE badge when rates update
         setInterval(() => {
           const badge = document.querySelector('.rate-badge');
-          badge.style.transform = 'scale(1.05)';
-          setTimeout(() => badge.style.transform = 'scale(1)', 200);
+          if (badge) {
+            badge.style.transform = 'scale(1.05)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 200);
+          }
         }, 3000);
       });
 
-      // Load real-time rates
       async function loadRates() {
         try {
           const response = await axios.get('/api/rates');
@@ -447,7 +479,6 @@ app.get('/exchange', (c) => {
         }
       }
 
-      // Setup event listeners
       function setupListeners() {
         document.getElementById('fromAmount').addEventListener('input', calculate);
         document.getElementById('fromCurrency').addEventListener('change', () => {
@@ -464,7 +495,6 @@ app.get('/exchange', (c) => {
         });
       }
 
-      // Check if USDT network selection is needed
       function checkUSDTNetwork() {
         const toCurrency = document.getElementById('toCurrency').value;
         const networkSection = document.getElementById('networkSection');
@@ -479,17 +509,15 @@ app.get('/exchange', (c) => {
         }
       }
 
-      // Select network
       function selectNetwork(network) {
         selectedNetwork = network;
         document.querySelectorAll('.network-option').forEach(el => {
           el.classList.remove('selected');
         });
-        document.querySelector(\\\`[data-network="\\\${network}"]\\\`).classList.add('selected');
+        document.querySelector(\`[data-network="\${network}"]\`).classList.add('selected');
         calculate();
       }
 
-      // Calculate
       async function calculate() {
         const amount = parseFloat(document.getElementById('fromAmount').value);
         const fromCurrency = document.getElementById('fromCurrency').value;
@@ -514,12 +542,10 @@ app.get('/exchange', (c) => {
         }
       }
 
-      // Display calculation with visual feedback for rate changes
       function displayCalculation(data) {
         const calc = data.calculation;
         const limits = data.limits;
 
-        // Animate rate change
         const rateElement = document.getElementById('rateValue');
         const newRate = calc.exchangeRate.toFixed(6);
         if (rateElement.textContent && rateElement.textContent !== newRate) {
@@ -533,21 +559,24 @@ app.get('/exchange', (c) => {
         rateElement.textContent = newRate;
 
         document.getElementById('feeValue').textContent = 
-          \\\`\\\${calc.totalFee.toLocaleString()} \\\${calc.fromCurrency}\\\`;
+          \`\${calc.totalFee.toLocaleString()} \${calc.fromCurrency}\`;
         
         if (calc.network) {
-          document.getElementById('networkFeeValue').textContent = \\\`~$\\\${calc.networkFeeUSD}\\\`;
+          document.getElementById('networkFeeValue').textContent = \`~$\${calc.networkFeeUSD}\`;
         }
         
         document.getElementById('receiveValue').textContent = 
-          \\\`\\\${calc.receivedAmount.toFixed(2)} \\\${calc.toCurrency}\\\`;
+          \`\${calc.receivedAmount.toFixed(2)} \${calc.toCurrency}\`;
 
-        // Limits
-        document.getElementById('limitsText').textContent = 
-          \\\`거래 한도: 최소 \\\${limits.min.toLocaleString()} \\\${limits.currency} ~ 최대 \\\${limits.max.toLocaleString()} \\\${limits.currency} (일일 \\\${limits.daily.toLocaleString()} \\\${limits.currency})\\\`;
+        const lang = document.getElementById('globalLang').value;
+        const limitsTextMap = {
+          ko: \`거래 한도: 최소 \${limits.min.toLocaleString()} \${limits.currency} ~ 최대 \${limits.max.toLocaleString()} \${limits.currency} (일일 \${limits.daily.toLocaleString()} \${limits.currency})\`,
+          en: \`Limits: Min \${limits.min.toLocaleString()} \${limits.currency} ~ Max \${limits.max.toLocaleString()} \${limits.currency} (Daily \${limits.daily.toLocaleString()} \${limits.currency})\`,
+          zh: \`交易限额：最低 \${limits.min.toLocaleString()} \${limits.currency} ~ 最高 \${limits.max.toLocaleString()} \${limits.currency} (每日 \${limits.daily.toLocaleString()} \${limits.currency})\`
+        };
+        document.getElementById('limitsText').textContent = limitsTextMap[lang];
       }
 
-      // Swap currencies
       function swapCurrencies() {
         const fromCurrency = document.getElementById('fromCurrency');
         const toCurrency = document.getElementById('toCurrency');
@@ -560,7 +589,6 @@ app.get('/exchange', (c) => {
         calculate();
       }
 
-      // Quick scenario
       function quickScenario(from, to) {
         document.getElementById('fromCurrency').value = from;
         document.getElementById('toCurrency').value = to;
@@ -568,39 +596,47 @@ app.get('/exchange', (c) => {
         calculate();
       }
 
-      // Show confirmation
       function showConfirmation() {
         if (!calculationResult) {
-          alert('계산 결과를 먼저 확인해주세요');
+          const lang = document.getElementById('globalLang').value;
+          const alertMsg = {
+            ko: '계산 결과를 먼저 확인해주세요',
+            en: 'Please calculate first',
+            zh: '请先计算'
+          };
+          alert(alertMsg[lang]);
           return;
         }
 
         const calc = calculationResult.calculation;
         document.getElementById('confirmSendAmount').textContent = 
-          \\\`\\\${calc.amount.toLocaleString()} \\\${calc.fromCurrency}\\\`;
+          \`\${calc.amount.toLocaleString()} \${calc.fromCurrency}\`;
         document.getElementById('confirmReceiveAmount').textContent = 
-          \\\`\\\${calc.receivedAmount.toFixed(2)} \\\${calc.toCurrency}\\\`;
+          \`\${calc.receivedAmount.toFixed(2)} \${calc.toCurrency}\`;
         document.getElementById('confirmRate').textContent = calc.exchangeRate.toFixed(6);
         document.getElementById('confirmFee').textContent = 
-          \\\`\\\${calc.totalFee.toLocaleString()} \\\${calc.fromCurrency}\\\`;
+          \`\${calc.totalFee.toLocaleString()} \${calc.fromCurrency}\`;
 
         document.getElementById('confirmModal').classList.remove('hidden');
         document.getElementById('confirmModal').classList.add('flex');
       }
 
-      // Close confirmation
       function closeConfirmation() {
         document.getElementById('confirmModal').classList.add('hidden');
         document.getElementById('confirmModal').classList.remove('flex');
       }
 
-      // Execute transaction
       function executeTransaction() {
-        alert('거래 기능은 추후 구현됩니다. 현재는 데모 버전입니다.');
+        const lang = document.getElementById('globalLang').value;
+        const msg = {
+          ko: '거래 기능은 추후 구현됩니다. 현재는 데모 버전입니다.',
+          en: 'Transaction feature coming soon. This is a demo version.',
+          zh: '交易功能即将推出。这是演示版本。'
+        };
+        alert(msg[lang]);
         closeConfirmation();
       }
 
-      // Change language
       function changeLanguage(lang) {
         const trans = translations[lang];
         Object.keys(trans).forEach(key => {
@@ -608,6 +644,13 @@ app.get('/exchange', (c) => {
           if (element) {
             element.textContent = trans[key];
           }
+        });
+
+        // Update currency select options
+        const toCurrency = document.getElementById('toCurrency');
+        Array.from(toCurrency.options).forEach(option => {
+          const text = option.getAttribute(\`data-\${lang}\`);
+          if (text) option.textContent = text;
         });
       }
     </script>
