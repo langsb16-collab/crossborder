@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
-    "build": "vite build && cp public/exchange.html dist/exchange.html && echo '{\"version\":1,\"include\":[\"/*\"],\"exclude\":[\"/exchange.html\"]}' > dist/_routes.json",
+    "build": "vite build && cp public/exchange.html dist/exchange.html && echo '{\"version\":1,\"include\":[\"/*\"],\"exclude\":[]}' > dist/_routes.json",
     "preview": "wrangler pages dev dist",
     "deploy:prod": "npm run build && wrangler pages deploy dist --project-name crossborder",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
