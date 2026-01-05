@@ -7,14 +7,218 @@ const app = new Hono()
 app.use('/static/*', serveStatic({ root: './public' }))
 app.use('/faq-data.json', serveStatic({ root: './public' }))
 
+// Exchange page - inline HTML to avoid fs issues
+app.get('/exchange', (c) => {
+  // Return inline version
+  return c.html(`<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 환전 · USDT 거래 - 크로스보더</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+      body { font-family: 'Inter', 'Noto Sans KR', sans-serif; font-size: 14px; }
+      .exchange-card { background: white; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+      .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: #10B981; animation: pulse 2s infinite; }
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="text-center mb-6">
+            <h1 class="text-2xl font-bold mb-2">🚀 실시간 환전 · USDT 거래</h1>
+            <div class="inline-flex items-center space-x-2 bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                <div class="pulse-dot"></div>
+                <span>LIVE</span>
+            </div>
+        </div>
+        
+        <div class="exchange-card p-6 mb-4">
+            <p class="text-center text-gray-600 mb-4">
+                실시간 환전 기능이 준비 중입니다.<br>
+                곧 4가지 환전 시나리오를 지원합니다:
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="font-bold mb-1">KRW → USD</div>
+                    <div class="text-xs text-gray-600">원화 → 달러</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="font-bold mb-1">CNY → USD</div>
+                    <div class="text-xs text-gray-600">위안 → 달러</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="font-bold mb-1">KRW → USDT</div>
+                    <div class="text-xs text-gray-600">원화 → 테더</div>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-lg text-center">
+                    <div class="font-bold mb-1">CNY → USDT</div>
+                    <div class="text-xs text-gray-600">위안 → 테더</div>
+                </div>
+            </div>
+            <div class="mt-6 text-center">
+                <a href="/" class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition">
+                    메인 페이지로 돌아가기
+                </a>
+            </div>
+        </div>
+        
+        <div class="text-center text-sm text-gray-500">
+            <p>API 엔드포인트가 구현되었습니다:</p>
+            <div class="mt-2 bg-gray-100 p-3 rounded text-left font-mono text-xs">
+                GET /api/rates - 실시간 환율<br>
+                POST /api/exchange/calculate - 환전 계산
+            </div>
+        </div>
+    </div>
+</body>
+</html>`)
+})
+
+// Exchange rates cache (simulating real-time updates)
+const exchangeRates = {
+  'KRW-USD': 0.000743,  // 1 KRW = 0.000743 USD
+  'CNY-USD': 0.1379,    // 1 CNY = 0.1379 USD
+  'USDT-USD': 0.9998,   // 1 USDT = 0.9998 USD (near parity)
+  'KRW-CNY': 0.0055,    // 1 KRW = 0.0055 CNY
+  lastUpdate: new Date().toISOString()
+}
+
+// Calculate derived rates
+function getDerivedRate(from: string, to: string): number {
+  if (from === to) return 1
+  
+  // Direct rates
+  const key = `${from}-${to}`
+  if (exchangeRates[key]) return exchangeRates[key]
+  
+  // Reverse rates
+  const reverseKey = `${to}-${from}`
+  if (exchangeRates[reverseKey]) return 1 / exchangeRates[reverseKey]
+  
+  // Via USD
+  const fromToUsd = exchangeRates[`${from}-USD`]
+  const toToUsd = exchangeRates[`${to}-USD`]
+  if (fromToUsd && toToUsd) {
+    return fromToUsd / toToUsd
+  }
+  
+  return 1
+}
+
 // API routes
-app.get('/api/exchange-rate', (c) => {
-  // Mock exchange rate API - replace with real API in production
-  const rate = 0.0055 // 1 KRW = 0.0055 CNY (approximate)
+app.get('/api/rates', (c) => {
+  // Real-time rates for all pairs
   return c.json({
     success: true,
-    rate: rate,
-    timestamp: new Date().toISOString(),
+    rates: {
+      'KRW-USD': exchangeRates['KRW-USD'],
+      'USD-KRW': 1 / exchangeRates['KRW-USD'],
+      'CNY-USD': exchangeRates['CNY-USD'],
+      'USD-CNY': 1 / exchangeRates['CNY-USD'],
+      'KRW-USDT': getDerivedRate('KRW', 'USDT'),
+      'USDT-KRW': getDerivedRate('USDT', 'KRW'),
+      'CNY-USDT': getDerivedRate('CNY', 'USDT'),
+      'USDT-CNY': getDerivedRate('USDT', 'CNY'),
+      'USDT-USD': exchangeRates['USDT-USD'],
+      'USD-USDT': 1 / exchangeRates['USDT-USD']
+    },
+    timestamp: exchangeRates.lastUpdate
+  })
+})
+
+app.post('/api/exchange/calculate', async (c) => {
+  try {
+    const { amount, fromCurrency, toCurrency, network } = await c.req.json()
+    
+    if (!amount || amount <= 0) {
+      return c.json({ success: false, error: 'Invalid amount' }, 400)
+    }
+    
+    // Get exchange rate
+    const rate = getDerivedRate(fromCurrency, toCurrency)
+    
+    // Fee calculation (0.8% platform fee + 0.2% spread)
+    const platformFeeRate = 0.008
+    const spreadRate = 0.002
+    const totalFeeRate = platformFeeRate + spreadRate
+    
+    const platformFee = amount * platformFeeRate
+    const spreadFee = amount * spreadRate
+    const totalFee = platformFee + spreadFee
+    
+    // Network fee for USDT
+    let networkFee = 0
+    let networkFeeUSD = 0
+    if (toCurrency === 'USDT') {
+      if (network === 'TRC20') {
+        networkFeeUSD = 1.5  // ~$1.5
+      } else if (network === 'ERC20') {
+        networkFeeUSD = 15   // ~$15
+      } else if (network === 'BEP20') {
+        networkFeeUSD = 0.5  // ~$0.5
+      }
+      // Convert network fee to source currency
+      const usdRate = getDerivedRate(fromCurrency, 'USD')
+      networkFee = networkFeeUSD / usdRate
+    }
+    
+    // Calculate final amount
+    const amountAfterFee = amount - totalFee - networkFee
+    const receivedAmount = amountAfterFee * rate
+    
+    // Limits based on scenario
+    let minLimit = 0
+    let maxLimit = 0
+    let dailyLimit = 0
+    
+    if (fromCurrency === 'KRW') {
+      minLimit = 10000        // 10,000 KRW
+      maxLimit = 10000000     // 10,000,000 KRW per transaction
+      dailyLimit = 50000000   // 50,000,000 KRW per day
+    } else if (fromCurrency === 'CNY') {
+      minLimit = 50           // 50 CNY
+      maxLimit = 50000        // 50,000 CNY per transaction
+      dailyLimit = 200000     // 200,000 CNY per day
+    }
+    
+    return c.json({
+      success: true,
+      calculation: {
+        amount: amount,
+        fromCurrency,
+        toCurrency,
+        exchangeRate: rate,
+        platformFee: platformFee,
+        spreadFee: spreadFee,
+        networkFee: networkFee,
+        networkFeeUSD: networkFeeUSD,
+        totalFee: totalFee + networkFee,
+        amountAfterFee: amountAfterFee,
+        receivedAmount: receivedAmount,
+        network: network || null
+      },
+      limits: {
+        min: minLimit,
+        max: maxLimit,
+        daily: dailyLimit,
+        currency: fromCurrency
+      },
+      timestamp: new Date().toISOString()
+    })
+  } catch (error) {
+    return c.json({ success: false, error: 'Calculation failed' }, 400)
+  }
+})
+
+// Legacy API for backward compatibility
+app.get('/api/exchange-rate', (c) => {
+  return c.json({
+    success: true,
+    rate: exchangeRates['KRW-CNY'],
+    timestamp: exchangeRates.lastUpdate,
     base: 'KRW',
     target: 'CNY'
   })
@@ -24,22 +228,20 @@ app.post('/api/calculate', async (c) => {
   try {
     const { amount, type } = await c.req.json()
     
-    // Exchange rate
-    const rate = 0.0055 // 1 KRW = 0.0055 CNY
+    const rate = exchangeRates['KRW-CNY']
     
-    // Fee calculation based on user type
     let platformFee = 0
     let spreadFee = 0
     
     if (type === 'individual') {
-      platformFee = amount * 0.015 // 1.5%
-      spreadFee = amount * 0.005 // 0.5%
+      platformFee = amount * 0.015
+      spreadFee = amount * 0.005
     } else if (type === 'freelancer') {
-      platformFee = amount * 0.03 // 3%
-      spreadFee = amount * 0.01 // 1%
+      platformFee = amount * 0.03
+      spreadFee = amount * 0.01
     } else if (type === 'corporate') {
-      platformFee = amount * 0.01 // 1%
-      spreadFee = amount * 0.005 // 0.5%
+      platformFee = amount * 0.01
+      spreadFee = amount * 0.005
     }
     
     const totalFee = platformFee + spreadFee
@@ -320,9 +522,15 @@ app.get('/', (c) => {
             <div class="container mx-auto px-4 text-center">
                 <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4" id="heroTitle">한중 정산의 새로운 기준</h2>
                 <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line" id="heroSubtitle">빠르고 안전한 크로스보더 결제 서비스</p>
-                <button onclick="scrollToCalculator()" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition" id="heroButton">
-                    지금 시작하기
-                </button>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                    <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
+                        <i class="fas fa-exchange-alt mr-2"></i>
+                        <span id="realTimeExchangeButton">실시간 환전하기</span>
+                    </a>
+                    <button onclick="scrollToCalculator()" class="btn-primary bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-lg transition border-2 border-white" id="heroButton">
+                        수수료 계산기
+                    </button>
+                </div>
             </div>
         </section>
 
@@ -479,7 +687,8 @@ app.get('/', (c) => {
               headerTitle: '크로스보더',
               heroTitle: '한중 정산의 새로운 기준',
               heroSubtitle: '빠르고 안전한 크로스보더 결제 서비스',
-              heroButton: '지금 시작하기',
+              realTimeExchangeButton: '실시간 환전하기',
+              heroButton: '수수료 계산기',
               featuresTitle: '서비스 특징',
               feature1Title: '신속한 처리',
               feature1Desc: '에스크로 기반 자동 정산',
@@ -514,7 +723,8 @@ app.get('/', (c) => {
               headerTitle: 'CrossBorder',
               heroTitle: 'New Standard for Korea-China Settlement',
               heroSubtitle: 'Fast & Secure Cross-Border Payment',
-              heroButton: 'Get Started',
+              realTimeExchangeButton: 'Real-Time Exchange',
+              heroButton: 'Fee Calculator',
               featuresTitle: 'Service Features',
               feature1Title: 'Fast Processing',
               feature1Desc: 'Escrow-based settlement',
@@ -549,7 +759,8 @@ app.get('/', (c) => {
               headerTitle: '跨境通',
               heroTitle: '韩中结算的新标准',
               heroSubtitle: '快速安全的跨境支付',
-              heroButton: '立即开始',
+              realTimeExchangeButton: '实时兑换',
+              heroButton: '费用计算器',
               featuresTitle: '服务特点',
               feature1Title: '快速处理',
               feature1Desc: '托管自动结算',

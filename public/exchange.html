@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 환전 · USDT 거래 - 크로스보더</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+      :root {
+        --color-primary: #0F172A;
+        --color-secondary: #1E293B;
+        --color-accent: #FF7A00;
+        --color-success: #10B981;
+        --color-warning: #F59E0B;
+      }
+      
+      body {
+        font-family: 'Inter', 'Noto Sans KR', sans-serif;
+        font-size: 14px;
+      }
+      
+      .single-line {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .exchange-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      }
+      
+      .currency-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23666' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+      }
+      
+      .swap-button {
+        transition: transform 0.3s ease;
+      }
+      
+      .swap-button:hover {
+        transform: rotate(180deg);
+      }
+      
+      .rate-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      
+      .pulse-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-success);
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      
+      @keyframes pulse {
+        0%, 100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: .5;
+        }
+      }
+      
+      .network-option {
+        border: 2px solid #E5E7EB;
+        border-radius: 8px;
+        padding: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      .network-option:hover {
+        border-color: var(--color-accent);
+        background: #FFF7ED;
+      }
+      
+      .network-option.selected {
+        border-color: var(--color-accent);
+        background: #FFF7ED;
+      }
+      
+      .info-box {
+        background: #F8FAFC;
+        border-left: 4px solid var(--color-accent);
+        padding: 12px;
+        border-radius: 4px;
+        font-size: 13px;
+      }
+      
+      @media (max-width: 767px) {
+        .exchange-card {
+          border-radius: 12px;
+        }
+      }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-slate-900 to-slate-800 text-white py-3 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-exchange-alt text-xl text-orange-400"></i>
+                    <h1 class="text-lg font-bold">크로스보더</h1>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-globe text-sm"></i>
+                    <select id="globalLang" class="bg-slate-700 text-white px-3 py-1 rounded text-sm cursor-pointer border border-slate-600">
+                        <option value="ko">한국어</option>
+                        <option value="en">English</option>
+                        <option value="zh">中文</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Exchange Section -->
+    <section class="py-6 md:py-8">
+        <div class="container mx-auto px-4 max-w-2xl">
+            <!-- Title & Real-time Badge -->
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-800" id="exchangeTitle">실시간 환전 · USDT 거래</h2>
+                <div class="flex items-center space-x-2 rate-badge bg-green-100 text-green-800">
+                    <div class="pulse-dot"></div>
+                    <span id="liveLabel">LIVE</span>
+                </div>
+            </div>
+
+            <!-- Exchange Card -->
+            <div class="exchange-card p-4 md:p-6 mb-4">
+                <!-- From Amount -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm" id="sendAmountLabel">보낼 금액</label>
+                    <div class="flex space-x-2">
+                        <input 
+                            type="number" 
+                            id="fromAmount" 
+                            class="flex-1 px-3 py-3 text-base border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" 
+                            placeholder="1,000,000"
+                            value="1000000"
+                            min="0">
+                        <select id="fromCurrency" class="currency-select px-4 py-3 text-base font-semibold border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent min-w-[100px]">
+                            <option value="KRW">KRW</option>
+                            <option value="CNY">CNY</option>
+                            <option value="USD">USD</option>
+                            <option value="USDT">USDT</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="flex justify-center my-2">
+                    <button onclick="swapCurrencies()" class="swap-button bg-orange-500 hover:bg-orange-600 text-white w-10 h-10 rounded-full flex items-center justify-center">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                </div>
+
+                <!-- To Currency -->
+                <div class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm" id="receiveCurrencyLabel">받을 통화</label>
+                    <select id="toCurrency" class="currency-select w-full px-4 py-3 text-base font-semibold border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <option value="USD">USD (달러)</option>
+                        <option value="USDT">USDT (테더)</option>
+                        <option value="KRW">KRW (원화)</option>
+                        <option value="CNY">CNY (위안화)</option>
+                    </select>
+                </div>
+
+                <!-- USDT Network Selection -->
+                <div id="networkSection" class="mb-4 hidden">
+                    <label class="block text-gray-700 font-semibold mb-2 text-sm" id="networkLabel">네트워크 선택</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="network-option selected" onclick="selectNetwork('TRC20')" data-network="TRC20">
+                            <div class="font-semibold text-sm mb-1">TRC20</div>
+                            <div class="text-xs text-gray-600">~$1.5</div>
+                            <div class="text-xs text-green-600 mt-1">권장</div>
+                        </div>
+                        <div class="network-option" onclick="selectNetwork('BEP20')" data-network="BEP20">
+                            <div class="font-semibold text-sm mb-1">BEP20</div>
+                            <div class="text-xs text-gray-600">~$0.5</div>
+                            <div class="text-xs text-gray-600 mt-1">저렴</div>
+                        </div>
+                        <div class="network-option" onclick="selectNetwork('ERC20')" data-network="ERC20">
+                            <div class="font-semibold text-sm mb-1">ERC20</div>
+                            <div class="text-xs text-gray-600">~$15</div>
+                            <div class="text-xs text-orange-600 mt-1">고가</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rate Info -->
+                <div class="bg-gray-50 rounded-lg p-4 mb-4" id="rateInfo">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-gray-600" id="rateLabel">환율</span>
+                        <span class="font-semibold text-sm" id="rateValue">1,345.20</span>
+                    </div>
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs text-gray-600" id="feeLabel">수수료 (0.8% + 0.2%)</span>
+                        <span class="font-semibold text-sm text-orange-600" id="feeValue">10,000 KRW</span>
+                    </div>
+                    <div id="networkFeeRow" class="flex items-center justify-between mb-2 hidden">
+                        <span class="text-xs text-gray-600" id="networkFeeLabel">네트워크 수수료</span>
+                        <span class="font-semibold text-sm text-orange-600" id="networkFeeValue">~$1.5</span>
+                    </div>
+                    <div class="border-t border-gray-300 pt-2 mt-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-sm text-gray-800" id="receiveLabel">실수령 금액</span>
+                            <span class="font-bold text-lg text-green-600" id="receiveValue">742.30 USD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Limits Info -->
+                <div class="info-box mb-4" id="limitsInfo">
+                    <div class="flex items-start space-x-2">
+                        <i class="fas fa-info-circle text-orange-500 mt-0.5"></i>
+                        <div class="flex-1 text-xs">
+                            <div id="limitsText">거래 한도: 최소 10,000 KRW ~ 최대 10,000,000 KRW (일일 50,000,000 KRW)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Last Update -->
+                <div class="flex items-center justify-between text-xs text-gray-500 mb-4">
+                    <span id="lastUpdateLabel">마지막 업데이트</span>
+                    <span id="lastUpdateTime">--</span>
+                </div>
+
+                <!-- Action Button -->
+                <button onclick="showConfirmation()" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-bold text-base transition">
+                    <span id="actionButton">지금 거래하기</span>
+                </button>
+
+                <!-- Regulation Notice -->
+                <div class="mt-3 text-xs text-gray-500 text-center" id="regulationNotice">
+                    본 플랫폼은 한국·중국 규제 기준을 자동 적용합니다
+                </div>
+            </div>
+
+            <!-- Quick Scenarios -->
+            <div class="grid grid-cols-2 gap-2 mb-6">
+                <button onclick="quickScenario('KRW', 'USD')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
+                    <div class="font-semibold text-sm mb-1">KRW → USD</div>
+                    <div class="text-xs text-gray-600">원화를 달러로</div>
+                </button>
+                <button onclick="quickScenario('CNY', 'USD')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
+                    <div class="font-semibold text-sm mb-1">CNY → USD</div>
+                    <div class="text-xs text-gray-600">위안을 달러로</div>
+                </button>
+                <button onclick="quickScenario('KRW', 'USDT')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
+                    <div class="font-semibold text-sm mb-1">KRW → USDT</div>
+                    <div class="text-xs text-gray-600">원화를 테더로</div>
+                </button>
+                <button onclick="quickScenario('CNY', 'USDT')" class="bg-white border-2 border-gray-200 hover:border-orange-500 rounded-lg p-3 text-left transition">
+                    <div class="font-semibold text-sm mb-1">CNY → USDT</div>
+                    <div class="text-xs text-gray-600">위안을 테더로</div>
+                </button>
+            </div>
+
+            <!-- Rate Source -->
+            <div class="text-center text-xs text-gray-500 mb-4">
+                <span id="rateSource">환율 출처: 실시간 국제 금융시장 데이터</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6">
+            <div class="text-center mb-4">
+                <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-check-circle text-orange-500 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-2" id="confirmTitle">거래 최종 확인</h3>
+                <p class="text-sm text-gray-600" id="confirmSubtitle">아래 내용을 확인해주세요</p>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-600">보낼 금액</span>
+                    <span class="font-semibold" id="confirmSendAmount">1,000,000 KRW</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-600">받을 금액</span>
+                    <span class="font-bold text-lg text-green-600" id="confirmReceiveAmount">742.30 USD</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-sm text-gray-600">환율</span>
+                    <span class="text-sm" id="confirmRate">1,345.20</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-sm text-gray-600">총 수수료</span>
+                    <span class="text-sm text-orange-600" id="confirmFee">12,000 KRW</span>
+                </div>
+            </div>
+
+            <div class="flex space-x-2">
+                <button onclick="closeConfirmation()" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg font-semibold transition">
+                    <span id="cancelButton">취소</span>
+                </button>
+                <button onclick="executeTransaction()" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition">
+                    <span id="confirmButton">확인</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <script>
+      // State
+      let selectedNetwork = 'TRC20';
+      let currentRates = {};
+      let calculationResult = null;
+
+      // Translations
+      const translations = {
+        ko: {
+          exchangeTitle: '실시간 환전 · USDT 거래',
+          liveLabel: 'LIVE',
+          sendAmountLabel: '보낼 금액',
+          receiveCurrencyLabel: '받을 통화',
+          networkLabel: '네트워크 선택',
+          rateLabel: '환율',
+          feeLabel: '수수료 (0.8% + 0.2%)',
+          networkFeeLabel: '네트워크 수수료',
+          receiveLabel: '실수령 금액',
+          lastUpdateLabel: '마지막 업데이트',
+          actionButton: '지금 거래하기',
+          regulationNotice: '본 플랫폼은 한국·중국 규제 기준을 자동 적용합니다',
+          rateSource: '환율 출처: 실시간 국제 금융시장 데이터',
+          confirmTitle: '거래 최종 확인',
+          confirmSubtitle: '아래 내용을 확인해주세요',
+          cancelButton: '취소',
+          confirmButton: '확인'
+        },
+        en: {
+          exchangeTitle: 'Real-time Exchange · USDT Trading',
+          liveLabel: 'LIVE',
+          sendAmountLabel: 'Send Amount',
+          receiveCurrencyLabel: 'Receive Currency',
+          networkLabel: 'Network Selection',
+          rateLabel: 'Rate',
+          feeLabel: 'Fee (0.8% + 0.2%)',
+          networkFeeLabel: 'Network Fee',
+          receiveLabel: 'You Receive',
+          lastUpdateLabel: 'Last Update',
+          actionButton: 'Trade Now',
+          regulationNotice: 'Korea·China regulations automatically applied',
+          rateSource: 'Rate Source: Real-time International Financial Market',
+          confirmTitle: 'Confirm Transaction',
+          confirmSubtitle: 'Please review the details',
+          cancelButton: 'Cancel',
+          confirmButton: 'Confirm'
+        },
+        zh: {
+          exchangeTitle: '实时兑换 · USDT 交易',
+          liveLabel: '实时',
+          sendAmountLabel: '发送金额',
+          receiveCurrencyLabel: '接收货币',
+          networkLabel: '网络选择',
+          rateLabel: '汇率',
+          feeLabel: '手续费 (0.8% + 0.2%)',
+          networkFeeLabel: '网络费用',
+          receiveLabel: '实际收到',
+          lastUpdateLabel: '最后更新',
+          actionButton: '立即交易',
+          regulationNotice: '本平台自动应用韩国·中国监管标准',
+          rateSource: '汇率来源：实时国际金融市场数据',
+          confirmTitle: '确认交易',
+          confirmSubtitle: '请确认以下详情',
+          cancelButton: '取消',
+          confirmButton: '确认'
+        }
+      };
+
+      // Initialize
+      document.addEventListener('DOMContentLoaded', () => {
+        loadRates();
+        setupListeners();
+        setInterval(loadRates, 5000); // Update every 5 seconds
+      });
+
+      // Load real-time rates
+      async function loadRates() {
+        try {
+          const response = await axios.get('/api/rates');
+          if (response.data.success) {
+            currentRates = response.data.rates;
+            document.getElementById('lastUpdateTime').textContent = 
+              new Date(response.data.timestamp).toLocaleTimeString();
+            calculate();
+          }
+        } catch (error) {
+          console.error('Failed to load rates:', error);
+        }
+      }
+
+      // Setup event listeners
+      function setupListeners() {
+        document.getElementById('fromAmount').addEventListener('input', calculate);
+        document.getElementById('fromCurrency').addEventListener('change', () => {
+          checkUSDTNetwork();
+          calculate();
+        });
+        document.getElementById('toCurrency').addEventListener('change', () => {
+          checkUSDTNetwork();
+          calculate();
+        });
+
+        document.getElementById('globalLang').addEventListener('change', (e) => {
+          changeLanguage(e.target.value);
+        });
+      }
+
+      // Check if USDT network selection is needed
+      function checkUSDTNetwork() {
+        const toCurrency = document.getElementById('toCurrency').value;
+        const networkSection = document.getElementById('networkSection');
+        const networkFeeRow = document.getElementById('networkFeeRow');
+        
+        if (toCurrency === 'USDT') {
+          networkSection.classList.remove('hidden');
+          networkFeeRow.classList.remove('hidden');
+        } else {
+          networkSection.classList.add('hidden');
+          networkFeeRow.classList.add('hidden');
+        }
+      }
+
+      // Select network
+      function selectNetwork(network) {
+        selectedNetwork = network;
+        document.querySelectorAll('.network-option').forEach(el => {
+          el.classList.remove('selected');
+        });
+        document.querySelector(\`[data-network="\${network}"]\`).classList.add('selected');
+        calculate();
+      }
+
+      // Calculate
+      async function calculate() {
+        const amount = parseFloat(document.getElementById('fromAmount').value);
+        const fromCurrency = document.getElementById('fromCurrency').value;
+        const toCurrency = document.getElementById('toCurrency').value;
+
+        if (!amount || amount <= 0) return;
+
+        try {
+          const response = await axios.post('/api/exchange/calculate', {
+            amount,
+            fromCurrency,
+            toCurrency,
+            network: toCurrency === 'USDT' ? selectedNetwork : null
+          });
+
+          if (response.data.success) {
+            calculationResult = response.data;
+            displayCalculation(response.data);
+          }
+        } catch (error) {
+          console.error('Calculation failed:', error);
+        }
+      }
+
+      // Display calculation
+      function displayCalculation(data) {
+        const calc = data.calculation;
+        const limits = data.limits;
+
+        document.getElementById('rateValue').textContent = calc.exchangeRate.toFixed(6);
+        document.getElementById('feeValue').textContent = 
+          \`\${calc.totalFee.toLocaleString()} \${calc.fromCurrency}\`;
+        
+        if (calc.network) {
+          document.getElementById('networkFeeValue').textContent = \`~$\${calc.networkFeeUSD}\`;
+        }
+        
+        document.getElementById('receiveValue').textContent = 
+          \`\${calc.receivedAmount.toFixed(2)} \${calc.toCurrency}\`;
+
+        // Limits
+        document.getElementById('limitsText').textContent = 
+          \`거래 한도: 최소 \${limits.min.toLocaleString()} \${limits.currency} ~ 최대 \${limits.max.toLocaleString()} \${limits.currency} (일일 \${limits.daily.toLocaleString()} \${limits.currency})\`;
+      }
+
+      // Swap currencies
+      function swapCurrencies() {
+        const fromCurrency = document.getElementById('fromCurrency');
+        const toCurrency = document.getElementById('toCurrency');
+        
+        const temp = fromCurrency.value;
+        fromCurrency.value = toCurrency.value;
+        toCurrency.value = temp;
+        
+        checkUSDTNetwork();
+        calculate();
+      }
+
+      // Quick scenario
+      function quickScenario(from, to) {
+        document.getElementById('fromCurrency').value = from;
+        document.getElementById('toCurrency').value = to;
+        checkUSDTNetwork();
+        calculate();
+      }
+
+      // Show confirmation
+      function showConfirmation() {
+        if (!calculationResult) {
+          alert('계산 결과를 먼저 확인해주세요');
+          return;
+        }
+
+        const calc = calculationResult.calculation;
+        document.getElementById('confirmSendAmount').textContent = 
+          \`\${calc.amount.toLocaleString()} \${calc.fromCurrency}\`;
+        document.getElementById('confirmReceiveAmount').textContent = 
+          \`\${calc.receivedAmount.toFixed(2)} \${calc.toCurrency}\`;
+        document.getElementById('confirmRate').textContent = calc.exchangeRate.toFixed(6);
+        document.getElementById('confirmFee').textContent = 
+          \`\${calc.totalFee.toLocaleString()} \${calc.fromCurrency}\`;
+
+        document.getElementById('confirmModal').classList.remove('hidden');
+        document.getElementById('confirmModal').classList.add('flex');
+      }
+
+      // Close confirmation
+      function closeConfirmation() {
+        document.getElementById('confirmModal').classList.add('hidden');
+        document.getElementById('confirmModal').classList.remove('flex');
+      }
+
+      // Execute transaction
+      function executeTransaction() {
+        alert('거래 기능은 추후 구현됩니다. 현재는 데모 버전입니다.');
+        closeConfirmation();
+      }
+
+      // Change language
+      function changeLanguage(lang) {
+        const trans = translations[lang];
+        Object.keys(trans).forEach(key => {
+          const element = document.getElementById(key);
+          if (element) {
+            element.textContent = trans[key];
+          }
+        });
+      }
+    </script>
+</body>
+</html>
