@@ -363,6 +363,9 @@ app.get('/exchange', (c) => {
           scenario3Desc: '원화를 테더로',
           scenario4Desc: '위안을 테더로',
           rateSource: '환율 출처: 실시간 국제 금융시장 데이터',
+          scenarioTitle: '실시간 환전 기능이 준비 중입니다',
+          scenarioSubtitle: '곧 4가지 환전 시나리오를 지원합니다:',
+          goToExchangeButton: '메인 환전 페이지로 이동',
           confirmTitle: '거래 최종 확인',
           confirmSubtitle: '아래 내용을 확인해주세요',
           confirmSendLabel: '보낼 금액',
@@ -394,6 +397,9 @@ app.get('/exchange', (c) => {
           scenario3Desc: 'Won to Tether',
           scenario4Desc: 'Yuan to Tether',
           rateSource: 'Rate Source: Real-time International Financial Market',
+          scenarioTitle: 'Real-time Exchange Feature Coming Soon',
+          scenarioSubtitle: 'We support 4 exchange scenarios:',
+          goToExchangeButton: 'Go to Exchange Page',
           confirmTitle: 'Confirm Transaction',
           confirmSubtitle: 'Please review the details',
           confirmSendLabel: 'Send Amount',
@@ -425,6 +431,9 @@ app.get('/exchange', (c) => {
           scenario3Desc: '韩元兑泰达币',
           scenario4Desc: '人民币兑泰达币',
           rateSource: '汇率来源：实时国际金融市场数据',
+          scenarioTitle: '实时兑换功能即将推出',
+          scenarioSubtitle: '我们支持4种兑换场景：',
+          goToExchangeButton: '前往兑换页面',
           confirmTitle: '确认交易',
           confirmSubtitle: '请确认以下详情',
           confirmSendLabel: '发送金额',
@@ -1244,25 +1253,25 @@ app.get('/', (c) => {
                     <a href="/exchange?from=KRW&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">💵</div>
                         <div class="font-bold text-base mb-1">KRW → USD</div>
-                        <div class="text-xs text-gray-600">원화 → 달러</div>
+                        <div class="text-xs text-gray-600" id="scenario1Desc">원화 → 달러</div>
                     </a>
                     
                     <a href="/exchange?from=CNY&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">💴</div>
                         <div class="font-bold text-base mb-1">CNY → USD</div>
-                        <div class="text-xs text-gray-600">위안 → 달러</div>
+                        <div class="text-xs text-gray-600" id="scenario2Desc">위안 → 달러</div>
                     </a>
                     
                     <a href="/exchange?from=KRW&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">💎</div>
                         <div class="font-bold text-base mb-1">KRW → USDT</div>
-                        <div class="text-xs text-gray-600">원화 → 테더</div>
+                        <div class="text-xs text-gray-600" id="scenario3Desc">원화 → 테더</div>
                     </a>
                     
                     <a href="/exchange?from=CNY&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">🪙</div>
                         <div class="font-bold text-base mb-1">CNY → USDT</div>
-                        <div class="text-xs text-gray-600">위안 → 테더</div>
+                        <div class="text-xs text-gray-600" id="scenario4Desc">위안 → 테더</div>
                     </a>
                 </div>
                 
