@@ -570,12 +570,12 @@ app.get('/', (c) => {
         </header>
 
         <!-- Hero Section - 간결하게 -->
-        <section class="hero-gradient text-white py-12 md:py-16">
+        <section class="hero-gradient text-white py-12 md:py-8">
             <div class="container mx-auto px-4 text-center">
                 <!-- Korean -->
                 <div class="lang-content" data-lang="ko">
-                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">한중 정산의 새로운 기준</h2>
-                    <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line">빠르고 안전한 크로스보더 결제 서비스</p>
+                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-2">한중 정산의 새로운 기준</h2>
+                    <p class="text-base md:text-xl mb-4 md:mb-4 opacity-90 single-line">Cross-Border Settlement, Redefined</p>
                     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
                         <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
                             <i class="fas fa-exchange-alt mr-2"></i>
@@ -589,8 +589,8 @@ app.get('/', (c) => {
                 
                 <!-- English -->
                 <div class="lang-content" data-lang="en" style="display:none">
-                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">New Standard for Korea-China Settlement</h2>
-                    <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line">Fast & Secure Cross-Border Payment</p>
+                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-2">Cross-Border Settlement, Redefined</h2>
+                    <p class="text-base md:text-xl mb-4 md:mb-4 opacity-90 single-line">Fast & Secure Cross-Border Payment</p>
                     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
                         <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
                             <i class="fas fa-exchange-alt mr-2"></i>
@@ -604,8 +604,8 @@ app.get('/', (c) => {
                 
                 <!-- Chinese -->
                 <div class="lang-content" data-lang="zh" style="display:none">
-                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4">韩中结算的新标准</h2>
-                    <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line">快速安全的跨境支付</p>
+                    <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-2">韩中结算的新标准</h2>
+                    <p class="text-base md:text-xl mb-4 md:mb-4 opacity-90 single-line">快速安全的跨境支付</p>
                     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
                         <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
                             <i class="fas fa-exchange-alt mr-2"></i>
@@ -620,7 +620,7 @@ app.get('/', (c) => {
         </section>
 
         <!-- Features Section - 여백 최소화 -->
-        <section class="py-8 md:py-12 bg-white">
+        <section class="py-8 md:py-6 bg-white">
             <div class="container mx-auto px-4">
                 <h3 class="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-800" id="featuresTitle">서비스 특징</h3>
                 <div class="grid grid-features">
@@ -650,7 +650,7 @@ app.get('/', (c) => {
         </section>
 
         <!-- Calculator Section -->
-        <section class="py-8 md:py-12 bg-gray-50" id="calculator">
+        <section class="py-8 md:py-6 bg-gray-50" id="calculator">
             <div class="container mx-auto px-4 max-w-xl">
                 <h3 class="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800" id="calcTitle">환율 계산기</h3>
                 <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
@@ -691,7 +691,7 @@ app.get('/', (c) => {
         </section>
 
         <!-- Use Cases Section -->
-        <section class="py-8 md:py-12 bg-white">
+        <section class="py-8 md:py-6 bg-white">
             <div class="container mx-auto px-4">
                 <h3 class="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800" id="useCasesTitle">이용 사례</h3>
                 <div class="grid grid-usecases max-w-3xl mx-auto">

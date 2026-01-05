@@ -354,6 +354,216 @@
         "en": "Yes. It is a structure that can apply for regulatory sandbox special cases with a transaction-based settlement model.",
         "zh": "是的。这是一个可以申请基于交易结算模型的监管沙箱特殊情况的结构。"
       }
+    },
+    {
+      "id": "faq_031",
+      "category": "exchange",
+      "title": {
+        "ko": "이 플랫폼에서 어떤 환전과 또 다른 거래를 할 수 있나요?",
+        "en": "What exchange and other transactions can I do on this platform?",
+        "zh": "我可以在这个平台上进行哪些兑换和其他交易？"
+      },
+      "content": {
+        "ko": "이 플랫폼에서는 아래 4가지 거래를 한 곳에서 처리할 수 있습니다. KRW↔USD, CNY↔USD, KRW↔USDT, CNY↔USDT를 모두 지원합니다.",
+        "en": "This platform can handle the following 4 transactions in one place. KRW↔USD, CNY↔USD, KRW↔USDT, CNY↔USDT are all supported.",
+        "zh": "此平台可以在一个地方处理以下4种交易。支持KRW↔USD、CNY↔USD、KRW↔USDT、CNY↔USDT。"
+      }
+    },
+    {
+      "id": "faq_032",
+      "category": "exchange",
+      "title": {
+        "ko": "환전, 코인 거래, 해외송금을 따로 구분해야 하나요?",
+        "en": "Do I need to distinguish between currency exchange, coin trading, and overseas remittances?",
+        "zh": "我需要区分货币兑换、加密货币交易和海外汇款吗？"
+      },
+      "content": {
+        "ko": "아닙니다. 통화와 금액만 입력하면 플랫폼이 자동으로 거래 유형을 판단해 처리합니다.",
+        "en": "No. Just enter the currency and amount, and the platform will automatically determine the transaction type and process it.",
+        "zh": "不需要。只需输入货币和金额，平台将自动确定交易类型并处理。"
+      }
+    },
+    {
+      "id": "faq_033",
+      "category": "exchange",
+      "title": {
+        "ko": "환율은 실시간으로 반영되나요?",
+        "en": "Are exchange rates reflected in real time?",
+        "zh": "汇率是否实时反映？"
+      },
+      "content": {
+        "ko": "네. KRW/USD, CNY/USD 환율과 USDT 시세가 1~5초 단위로 자동 갱신됩니다.",
+        "en": "Yes. KRW/USD, CNY/USD exchange rates and USDT prices are automatically updated every 1-5 seconds.",
+        "zh": "是的。KRW/USD、CNY/USD汇率和USDT价格每1-5秒自动更新。"
+      }
+    },
+    {
+      "id": "faq_034",
+      "category": "exchange",
+      "title": {
+        "ko": "KRW로 USDT를 살 때 계산은 어떻게 되나요?",
+        "en": "How is it calculated when buying USDT with KRW?",
+        "zh": "用KRW购买USDT时如何计算？"
+      },
+      "content": {
+        "ko": "KRW → USD → USDT 과정을 내부에서 자동 계산하여 하나의 거래처럼 보여줍니다.",
+        "en": "The KRW → USD → USDT process is automatically calculated internally and shown as a single transaction.",
+        "zh": "KRW → USD → USDT过程在内部自动计算，并显示为单笔交易。"
+      }
+    },
+    {
+      "id": "faq_035",
+      "category": "exchange",
+      "title": {
+        "ko": "CNY로 USDT를 거래하는 것도 가능한가요?",
+        "en": "Is it possible to trade USDT with CNY?",
+        "zh": "可以用CNY交易USDT吗？"
+      },
+      "content": {
+        "ko": "가능합니다. CNY → USD → USDT가 자동 처리되며 별도 설정은 필요하지 않습니다.",
+        "en": "Yes. CNY → USD → USDT is automatically processed and no separate settings are required.",
+        "zh": "可以。CNY → USD → USDT自动处理，无需单独设置。"
+      }
+    },
+    {
+      "id": "faq_036",
+      "category": "calculator",
+      "title": {
+        "ko": "실시간 계산기는 어떻게 사용하나요?",
+        "en": "How do I use the real-time calculator?",
+        "zh": "如何使用实时计算器？"
+      },
+      "content": {
+        "ko": "금액을 한 번 입력하면 환율, 수수료, 최종 수령 금액이 즉시 계산되어 표시됩니다.",
+        "en": "Once you enter the amount, the exchange rate, fees, and final amount received are immediately calculated and displayed.",
+        "zh": "输入金额后，汇率、费用和最终收到的金额将立即计算并显示。"
+      }
+    },
+    {
+      "id": "faq_037",
+      "category": "calculator",
+      "title": {
+        "ko": "수수료는 어디에서 확인할 수 있나요?",
+        "en": "Where can I check the fees?",
+        "zh": "我在哪里可以查看费用？"
+      },
+      "content": {
+        "ko": "계산 화면에서 환율과 함께 수수료율과 금액이 명확히 표시됩니다. 숨겨진 수수료는 없습니다.",
+        "en": "The fee rate and amount are clearly displayed on the calculation screen along with the exchange rate. There are no hidden fees.",
+        "zh": "计算屏幕上与汇率一起清楚地显示费率和金额。没有隐藏费用。"
+      }
+    },
+    {
+      "id": "faq_038",
+      "category": "calculator",
+      "title": {
+        "ko": "수수료를 포함하거나 제외해서 볼 수 있나요?",
+        "en": "Can I view with or without fees?",
+        "zh": "我可以包含或不包含费用查看吗？"
+      },
+      "content": {
+        "ko": "네. 수수료 포함/제외를 선택하여 비교할 수 있습니다.",
+        "en": "Yes. You can select to include/exclude fees for comparison.",
+        "zh": "是的。您可以选择包含/不包含费用进行比较。"
+      }
+    },
+    {
+      "id": "faq_039",
+      "category": "usdt",
+      "title": {
+        "ko": "USDT 거래 시 네트워크는 선택해야 하나요?",
+        "en": "Do I need to select a network when trading USDT?",
+        "zh": "交易USDT时需要选择网络吗？"
+      },
+      "content": {
+        "ko": "USDT 선택 시 TRC20, ERC20, BEP20 중에서 네트워크를 선택할 수 있습니다.",
+        "en": "When selecting USDT, you can choose from TRC20, ERC20, or BEP20 networks.",
+        "zh": "选择USDT时，您可以从TRC20、ERC20或BEP20网络中选择。"
+      }
+    },
+    {
+      "id": "faq_040",
+      "category": "usdt",
+      "title": {
+        "ko": "USDT 네트워크 수수료도 실시간으로 보이나요?",
+        "en": "Are USDT network fees shown in real time?",
+        "zh": "USDT网络费用也会实时显示吗？"
+      },
+      "content": {
+        "ko": "네. 선택한 네트워크에 따라 예상 수수료와 처리 시간이 실시간으로 표시됩니다.",
+        "en": "Yes. Estimated fees and processing time are displayed in real time according to the selected network.",
+        "zh": "是的。根据选择的网络实时显示预估费用和处理时间。"
+      }
+    },
+    {
+      "id": "faq_041",
+      "category": "regulation",
+      "title": {
+        "ko": "국가별 규제나 한도는 자동으로 적용되나요?",
+        "en": "Are country-specific regulations and limits automatically applied?",
+        "zh": "国家特定的法规和限额会自动应用吗？"
+      },
+      "content": {
+        "ko": "네. KRW 기반 거래는 한국 기준, CNY 기반 거래는 중국 기준 규제가 자동 적용됩니다.",
+        "en": "Yes. KRW-based transactions automatically apply Korean regulations, and CNY-based transactions apply Chinese regulations.",
+        "zh": "是的。基于KRW的交易自动应用韩国法规，基于CNY的交易应用中国法规。"
+      }
+    },
+    {
+      "id": "faq_042",
+      "category": "limit",
+      "title": {
+        "ko": "한도를 초과하면 어떻게 되나요?",
+        "en": "What happens if I exceed the limit?",
+        "zh": "如果超过限额会怎样？"
+      },
+      "content": {
+        "ko": "거래 전에 사전 안내가 표시되며, 분할 거래나 다음날 거래 같은 대안을 제시합니다.",
+        "en": "A notice is displayed before the transaction, and alternatives such as split transactions or next-day transactions are suggested.",
+        "zh": "交易前会显示通知，并建议分割交易或第二天交易等替代方案。"
+      }
+    },
+    {
+      "id": "faq_043",
+      "category": "exchange",
+      "title": {
+        "ko": "환율이 급변하면 어떻게 되나요?",
+        "en": "What happens if the exchange rate changes suddenly?",
+        "zh": "如果汇率突然变化会怎样？"
+      },
+      "content": {
+        "ko": "환율이 크게 변동될 경우 자동으로 재확인 팝업이 표시되어 안전하게 거래할 수 있습니다.",
+        "en": "If the exchange rate changes significantly, a reconfirmation popup is automatically displayed for safe transactions.",
+        "zh": "如果汇率大幅变化，会自动显示重新确认弹出窗口以进行安全交易。"
+      }
+    },
+    {
+      "id": "faq_044",
+      "category": "exchange",
+      "title": {
+        "ko": "환율을 잠시 고정할 수도 있나요?",
+        "en": "Can I lock the exchange rate temporarily?",
+        "zh": "我可以暂时锁定汇率吗？"
+      },
+      "content": {
+        "ko": "네. 30초~2분 동안 환율을 고정하는 기능을 제공하여 안정적으로 거래할 수 있습니다.",
+        "en": "Yes. We provide a feature to lock the exchange rate for 30 seconds to 2 minutes for stable transactions.",
+        "zh": "是的。我们提供30秒至2分钟的汇率锁定功能，以进行稳定的交易。"
+      }
+    },
+    {
+      "id": "faq_045",
+      "category": "history",
+      "title": {
+        "ko": "거래 내역과 증빙 자료는 받을 수 있나요?",
+        "en": "Can I receive transaction history and proof documents?",
+        "zh": "我可以收到交易记录和证明文件吗？"
+      },
+      "content": {
+        "ko": "모든 거래는 타임라인으로 저장되며, 환율·수수료·시점이 포함된 PDF 또는 엑셀로 다운로드할 수 있습니다.",
+        "en": "All transactions are saved in a timeline and can be downloaded as PDF or Excel including exchange rates, fees, and timestamps.",
+        "zh": "所有交易都保存在时间线中，可以下载包含汇率、费用和时间戳的PDF或Excel。"
+      }
     }
   ]
 }
