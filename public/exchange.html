@@ -391,6 +391,24 @@
 
       // Initialize
       document.addEventListener('DOMContentLoaded', () => {
+        // Read URL parameters for scenario selection
+        const urlParams = new URLSearchParams(window.location.search);
+        const fromParam = urlParams.get('from');
+        const toParam = urlParams.get('to');
+        
+        // Set currencies from URL if provided
+        if (fromParam) {
+          const fromSelect = document.getElementById('fromCurrency');
+          if (fromSelect) fromSelect.value = fromParam.toUpperCase();
+        }
+        if (toParam) {
+          const toSelect = document.getElementById('toCurrency');
+          if (toSelect) toSelect.value = toParam.toUpperCase();
+        }
+        
+        // Check USDT network after setting currencies
+        checkUSDTNetwork();
+        
         loadRates();
         setupListeners();
         setInterval(loadRates, 3000); // Update every 3 seconds for real-time feel

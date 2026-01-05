@@ -649,6 +649,48 @@ app.get('/', (c) => {
             </div>
         </section>
 
+        <!-- 4가지 환전 시나리오 선택 -->
+        <section class="py-8 md:py-6 bg-gray-50">
+            <div class="container mx-auto px-4 max-w-2xl">
+                <div class="text-center mb-4">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-2" id="scenarioTitle">실시간 환전 기능이 준비 중입니다</h3>
+                    <p class="text-sm text-gray-600" id="scenarioSubtitle">곧 4가지 환전 시나리오를 지원합니다:</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <a href="/exchange?from=KRW&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                        <div class="text-2xl mb-2">💵</div>
+                        <div class="font-bold text-base mb-1">KRW → USD</div>
+                        <div class="text-xs text-gray-600">원화 → 달러</div>
+                    </a>
+                    
+                    <a href="/exchange?from=CNY&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                        <div class="text-2xl mb-2">💴</div>
+                        <div class="font-bold text-base mb-1">CNY → USD</div>
+                        <div class="text-xs text-gray-600">위안 → 달러</div>
+                    </a>
+                    
+                    <a href="/exchange?from=KRW&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                        <div class="text-2xl mb-2">💎</div>
+                        <div class="font-bold text-base mb-1">KRW → USDT</div>
+                        <div class="text-xs text-gray-600">원화 → 테더</div>
+                    </a>
+                    
+                    <a href="/exchange?from=CNY&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                        <div class="text-2xl mb-2">🪙</div>
+                        <div class="font-bold text-base mb-1">CNY → USDT</div>
+                        <div class="text-xs text-gray-600">위안 → 테더</div>
+                    </a>
+                </div>
+                
+                <div class="text-center">
+                    <a href="/exchange" class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition">
+                        <span id="goToExchangeButton">메인 환전 페이지로 이동</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <!-- Calculator Section -->
         <section class="py-8 md:py-6 bg-gray-50" id="calculator">
             <div class="container mx-auto px-4 max-w-xl">
