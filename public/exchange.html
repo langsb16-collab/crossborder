@@ -56,6 +56,7 @@
         border-radius: 6px;
         font-size: 11px;
         font-weight: 600;
+        transition: transform 0.2s ease;
       }
       
       .pulse-dot {
@@ -392,7 +393,14 @@
       document.addEventListener('DOMContentLoaded', () => {
         loadRates();
         setupListeners();
-        setInterval(loadRates, 5000); // Update every 5 seconds
+        setInterval(loadRates, 3000); // Update every 3 seconds for real-time feel
+        
+        // Add visual pulse animation to LIVE badge when rates update
+        setInterval(() => {
+          const badge = document.querySelector('.rate-badge');
+          badge.style.transform = 'scale(1.05)';
+          setTimeout(() => badge.style.transform = 'scale(1)', 200);
+        }, 3000);
       });
 
       // Load real-time rates
@@ -477,12 +485,24 @@
         }
       }
 
-      // Display calculation
+      // Display calculation with visual feedback for rate changes
       function displayCalculation(data) {
         const calc = data.calculation;
         const limits = data.limits;
 
-        document.getElementById('rateValue').textContent = calc.exchangeRate.toFixed(6);
+        // Animate rate change
+        const rateElement = document.getElementById('rateValue');
+        const newRate = calc.exchangeRate.toFixed(6);
+        if (rateElement.textContent && rateElement.textContent !== newRate) {
+          rateElement.style.color = '#16a34a';
+          rateElement.style.fontWeight = 'bold';
+          setTimeout(() => {
+            rateElement.style.color = '';
+            rateElement.style.fontWeight = '';
+          }, 800);
+        }
+        rateElement.textContent = newRate;
+
         document.getElementById('feeValue').textContent = 
           \`\${calc.totalFee.toLocaleString()} \${calc.fromCurrency}\`;
         

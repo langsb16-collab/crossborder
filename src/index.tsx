@@ -77,13 +77,25 @@ app.get('/exchange', (c) => {
 </html>`)
 })
 
-// Exchange rates cache (simulating real-time updates)
+// Exchange rates cache with simulated fluctuations
+// In production, integrate with exchangerate-api.com or similar service
 const exchangeRates = {
   'KRW-USD': 0.000743,  // 1 KRW = 0.000743 USD
   'CNY-USD': 0.1379,    // 1 CNY = 0.1379 USD
   'USDT-USD': 0.9998,   // 1 USDT = 0.9998 USD (near parity)
   'KRW-CNY': 0.0055,    // 1 KRW = 0.0055 CNY
   lastUpdate: new Date().toISOString()
+}
+
+// Simulate slight rate fluctuations on each API call (±0.05%)
+function getFluctuatedRates() {
+  const fluctuate = (baseRate: number) => baseRate * (1 + (Math.random() - 0.5) * 0.001)
+  return {
+    'KRW-USD': fluctuate(0.000743),
+    'CNY-USD': fluctuate(0.1379),
+    'USDT-USD': fluctuate(0.9998),
+    'KRW-CNY': fluctuate(0.0055)
+  }
 }
 
 // Calculate derived rates
@@ -110,22 +122,24 @@ function getDerivedRate(from: string, to: string): number {
 
 // API routes
 app.get('/api/rates', (c) => {
-  // Real-time rates for all pairs
+  // Get fluctuated rates for real-time feel
+  const currentRates = getFluctuatedRates()
+  
   return c.json({
     success: true,
     rates: {
-      'KRW-USD': exchangeRates['KRW-USD'],
-      'USD-KRW': 1 / exchangeRates['KRW-USD'],
-      'CNY-USD': exchangeRates['CNY-USD'],
-      'USD-CNY': 1 / exchangeRates['CNY-USD'],
-      'KRW-USDT': getDerivedRate('KRW', 'USDT'),
-      'USDT-KRW': getDerivedRate('USDT', 'KRW'),
-      'CNY-USDT': getDerivedRate('CNY', 'USDT'),
-      'USDT-CNY': getDerivedRate('USDT', 'CNY'),
-      'USDT-USD': exchangeRates['USDT-USD'],
-      'USD-USDT': 1 / exchangeRates['USDT-USD']
+      'KRW-USD': currentRates['KRW-USD'],
+      'USD-KRW': 1 / currentRates['KRW-USD'],
+      'CNY-USD': currentRates['CNY-USD'],
+      'USD-CNY': 1 / currentRates['CNY-USD'],
+      'KRW-USDT': currentRates['KRW-USD'] / currentRates['USDT-USD'],
+      'USDT-KRW': currentRates['USDT-USD'] / currentRates['KRW-USD'],
+      'CNY-USDT': currentRates['CNY-USD'] / currentRates['USDT-USD'],
+      'USDT-CNY': currentRates['USDT-USD'] / currentRates['CNY-USD'],
+      'USDT-USD': currentRates['USDT-USD'],
+      'USD-USDT': 1 / currentRates['USDT-USD']
     },
-    timestamp: exchangeRates.lastUpdate
+    timestamp: Date.now()
   })
 })
 
