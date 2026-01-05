@@ -1117,7 +1117,7 @@ app.get('/', (c) => {
                     <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-2">한중 정산의 새로운 기준</h2>
                     <p class="text-base md:text-xl mb-4 md:mb-4 opacity-90 single-line">Cross-Border Settlement, Redefined</p>
                     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                        <a href="/exchange.html" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
+                        <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
                             <i class="fas fa-exchange-alt mr-2"></i>
                             <span>실시간 환전</span>
                         </a>
@@ -1132,7 +1132,7 @@ app.get('/', (c) => {
                     <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-2">Cross-Border Settlement, Redefined</h2>
                     <p class="text-base md:text-xl mb-4 md:mb-4 opacity-90 single-line">Fast & Secure Cross-Border Payment</p>
                     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                        <a href="/exchange.html" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
+                        <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
                             <i class="fas fa-exchange-alt mr-2"></i>
                             <span>Real-Time Exchange</span>
                         </a>
@@ -1147,7 +1147,7 @@ app.get('/', (c) => {
                     <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-2">韩中结算的新标准</h2>
                     <p class="text-base md:text-xl mb-4 md:mb-4 opacity-90 single-line">快速安全的跨境支付</p>
                     <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                        <a href="/exchange.html" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
+                        <a href="/exchange" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition inline-block">
                             <i class="fas fa-exchange-alt mr-2"></i>
                             <span>实时兑换</span>
                         </a>
@@ -1198,25 +1198,25 @@ app.get('/', (c) => {
                 </div>
                 
                 <div class="grid grid-cols-2 gap-3 mb-4">
-                    <a href="/exchange.html?from=KRW&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                    <a href="/exchange?from=KRW&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">💵</div>
                         <div class="font-bold text-base mb-1">KRW → USD</div>
                         <div class="text-xs text-gray-600">원화 → 달러</div>
                     </a>
                     
-                    <a href="/exchange.html?from=CNY&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                    <a href="/exchange?from=CNY&to=USD" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">💴</div>
                         <div class="font-bold text-base mb-1">CNY → USD</div>
                         <div class="text-xs text-gray-600">위안 → 달러</div>
                     </a>
                     
-                    <a href="/exchange.html?from=KRW&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                    <a href="/exchange?from=KRW&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">💎</div>
                         <div class="font-bold text-base mb-1">KRW → USDT</div>
                         <div class="text-xs text-gray-600">원화 → 테더</div>
                     </a>
                     
-                    <a href="/exchange.html?from=CNY&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
+                    <a href="/exchange?from=CNY&to=USDT" class="bg-white border-2 border-gray-200 hover:border-orange-500 hover:shadow-lg rounded-lg p-4 text-center transition cursor-pointer">
                         <div class="text-2xl mb-2">🪙</div>
                         <div class="font-bold text-base mb-1">CNY → USDT</div>
                         <div class="text-xs text-gray-600">위안 → 테더</div>
@@ -1224,7 +1224,7 @@ app.get('/', (c) => {
                 </div>
                 
                 <div class="text-center">
-                    <a href="/exchange.html" class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition">
+                    <a href="/exchange" class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg font-semibold transition">
                         <span id="goToExchangeButton">메인 환전 페이지로 이동</span>
                     </a>
                 </div>
