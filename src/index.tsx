@@ -330,6 +330,24 @@ app.get('/', (c) => {
             background: rgba(255,255,255,0.2);
           }
           
+          /* 챗봇 언어 선택 - 진청색 배경 */
+          #chatLang {
+            background: #0F172A !important;
+            border: 1px solid #1E293B !important;
+            color: white !important;
+            font-weight: 600;
+          }
+          
+          #chatLang option {
+            background: #0F172A;
+            color: white;
+          }
+          
+          #chatLang:focus {
+            outline: 2px solid var(--color-accent);
+            background: #1E293B !important;
+          }
+          
           /* 카드 최적화 - 모바일 */
           .feature-card {
             min-height: 56px;
@@ -528,7 +546,7 @@ app.get('/', (c) => {
                         <span id="realTimeExchangeButton">실시간 환전하기</span>
                     </a>
                     <button onclick="scrollToCalculator()" class="btn-primary bg-white hover:bg-gray-100 text-gray-800 px-6 py-2 rounded-lg transition border-2 border-white" id="heroButton">
-                        수수료 계산기
+                        환율 계산기
                     </button>
                 </div>
             </div>
@@ -567,7 +585,7 @@ app.get('/', (c) => {
         <!-- Calculator Section -->
         <section class="py-8 md:py-12 bg-gray-50" id="calculator">
             <div class="container mx-auto px-4 max-w-xl">
-                <h3 class="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800" id="calcTitle">수수료 계산기</h3>
+                <h3 class="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800" id="calcTitle">환율 계산기</h3>
                 <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
                     <div class="mb-4">
                         <label class="block text-gray-700 font-semibold mb-2 text-sm" id="calcAmountLabel">송금 금액 (KRW)</label>
@@ -688,7 +706,7 @@ app.get('/', (c) => {
               heroTitle: '한중 정산의 새로운 기준',
               heroSubtitle: '빠르고 안전한 크로스보더 결제 서비스',
               realTimeExchangeButton: '실시간 환전하기',
-              heroButton: '수수료 계산기',
+              heroButton: '환율 계산기',
               featuresTitle: '서비스 특징',
               feature1Title: '신속한 처리',
               feature1Desc: '에스크로 기반 자동 정산',
@@ -696,7 +714,7 @@ app.get('/', (c) => {
               feature2Desc: 'AML/KYC 인증 시스템',
               feature3Title: '합리적 수수료',
               feature3Desc: '투명한 수수료 체계',
-              calcTitle: '수수료 계산기',
+              calcTitle: '환율 계산기',
               calcAmountLabel: '송금 금액 (KRW)',
               calcTypeLabel: '이용자 유형',
               calcButton: '계산하기',
@@ -724,7 +742,7 @@ app.get('/', (c) => {
               heroTitle: 'New Standard for Korea-China Settlement',
               heroSubtitle: 'Fast & Secure Cross-Border Payment',
               realTimeExchangeButton: 'Real-Time Exchange',
-              heroButton: 'Fee Calculator',
+              heroButton: 'Exchange Rate Calculator',
               featuresTitle: 'Service Features',
               feature1Title: 'Fast Processing',
               feature1Desc: 'Escrow-based settlement',
@@ -732,7 +750,7 @@ app.get('/', (c) => {
               feature2Desc: 'AML/KYC verification',
               feature3Title: 'Fair Fees',
               feature3Desc: 'Transparent pricing',
-              calcTitle: 'Fee Calculator',
+              calcTitle: 'Exchange Rate Calculator',
               calcAmountLabel: 'Amount (KRW)',
               calcTypeLabel: 'User Type',
               calcButton: 'Calculate',
@@ -760,7 +778,7 @@ app.get('/', (c) => {
               heroTitle: '韩中结算的新标准',
               heroSubtitle: '快速安全的跨境支付',
               realTimeExchangeButton: '实时兑换',
-              heroButton: '费用计算器',
+              heroButton: '汇率计算器',
               featuresTitle: '服务特点',
               feature1Title: '快速处理',
               feature1Desc: '托管自动结算',
@@ -768,7 +786,7 @@ app.get('/', (c) => {
               feature2Desc: 'AML/KYC认证',
               feature3Title: '合理费用',
               feature3Desc: '透明定价',
-              calcTitle: '费用计算器',
+              calcTitle: '汇率计算器',
               calcAmountLabel: '金额 (KRW)',
               calcTypeLabel: '用户类型',
               calcButton: '计算',
