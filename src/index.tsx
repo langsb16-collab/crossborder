@@ -90,27 +90,71 @@ app.get('/', (c) => {
           
           body {
             font-family: 'Inter', 'Noto Sans KR', 'Noto Sans SC', sans-serif;
+            font-size: 14px;
+          }
+          
+          /* 1줄 표시 원칙 */
+          .single-line {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           
           .hero-gradient {
             background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
           }
           
-          .card-hover {
+          /* 언어 선택 드롭다운 - 항상 눈에 띄게 */
+          .lang-select {
+            height: 36px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.3);
+            font-size: 13px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+            background-position: right 0.3rem center;
+            background-repeat: no-repeat;
+            background-size: 1.2em 1.2em;
+            padding-right: 2rem;
+          }
+          
+          .lang-select:focus {
+            outline: 2px solid var(--color-accent);
+            background: rgba(255,255,255,0.2);
+          }
+          
+          /* 카드 최적화 - 모바일 */
+          .feature-card {
+            min-height: 56px;
+            padding: 8px 10px;
             transition: all 0.3s ease;
           }
           
-          .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+          .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
           }
           
+          /* 버튼 - 모바일 최적화 */
+          .btn-primary {
+            height: 42px;
+            font-size: 13px;
+            border-radius: 8px;
+            font-weight: 600;
+          }
+          
+          /* 챗봇 버튼 */
           .chatbot-button {
             position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 64px;
-            height: 64px;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: var(--color-accent);
             color: white;
@@ -124,16 +168,17 @@ app.get('/', (c) => {
           }
           
           .chatbot-button:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(255, 122, 0, 0.5);
           }
           
+          /* 챗봇 패널 */
           .chatbot-panel {
             position: fixed;
             bottom: 0;
             right: 0;
             width: 100%;
-            max-width: 420px;
+            max-width: 100%;
             height: 80vh;
             background: white;
             border-radius: 16px 16px 0 0;
@@ -149,18 +194,11 @@ app.get('/', (c) => {
             transform: translateY(0);
           }
           
-          @media (min-width: 768px) {
-            .chatbot-panel {
-              bottom: 100px;
-              right: 24px;
-              border-radius: 16px;
-              height: 600px;
-            }
-          }
-          
+          /* FAQ 아이템 */
           .faq-item {
             border-bottom: 1px solid var(--border-default);
             cursor: pointer;
+            padding: 10px 12px;
           }
           
           .faq-item:hover {
@@ -177,27 +215,97 @@ app.get('/', (c) => {
             max-height: 500px;
           }
           
-          .language-selector {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
-            background-position: right 0.5rem center;
-            background-repeat: no-repeat;
-            background-size: 1.5em 1.5em;
-            padding-right: 2.5rem;
+          /* 반응형 미디어 쿼리 */
+          @media (max-width: 767px) {
+            body { font-size: 14px; }
+            
+            .section-padding {
+              padding: 12px 16px;
+            }
+            
+            .card-padding {
+              padding: 8px 10px;
+            }
+            
+            h1 { font-size: 18px; }
+            h2 { font-size: 22px; }
+            h3 { font-size: 18px; }
+            h4 { font-size: 14px; }
+            
+            .grid-features {
+              grid-template-columns: 1fr;
+              gap: 8px;
+            }
+            
+            .grid-usecases {
+              grid-template-columns: 1fr;
+              gap: 8px;
+            }
+          }
+          
+          @media (min-width: 768px) and (max-width: 1023px) {
+            .chatbot-panel {
+              bottom: 20px;
+              right: 20px;
+              border-radius: 16px;
+              max-width: 400px;
+              height: 600px;
+            }
+            
+            .grid-features {
+              grid-template-columns: repeat(3, 1fr);
+              gap: 12px;
+            }
+            
+            .grid-usecases {
+              grid-template-columns: repeat(2, 1fr);
+              gap: 12px;
+            }
+          }
+          
+          @media (min-width: 1024px) {
+            body { font-size: 16px; }
+            
+            .section-padding {
+              padding: 20px 24px;
+            }
+            
+            .card-padding {
+              padding: 12px 14px;
+            }
+            
+            .chatbot-panel {
+              bottom: 90px;
+              right: 24px;
+              border-radius: 16px;
+              max-width: 420px;
+              height: 600px;
+            }
+            
+            .grid-features {
+              grid-template-columns: repeat(3, 1fr);
+              gap: 16px;
+            }
+            
+            .grid-usecases {
+              grid-template-columns: repeat(2, 1fr);
+              gap: 16px;
+            }
           }
         </style>
     </head>
     <body class="bg-gray-50">
-        <!-- Header -->
-        <header class="hero-gradient text-white py-6 sticky top-0 z-50">
+        <!-- Header - 고정, 언어 선택 항상 보임 -->
+        <header class="hero-gradient text-white py-3 sticky top-0 z-50 shadow-md">
             <div class="container mx-auto px-4">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <i class="fas fa-exchange-alt text-3xl text-orange-400"></i>
-                        <h1 class="text-2xl font-bold" id="headerTitle">크로스보더</h1>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-exchange-alt text-xl md:text-2xl text-orange-400"></i>
+                        <h1 class="text-lg md:text-xl font-bold single-line" id="headerTitle">크로스보더</h1>
                     </div>
-                    <div>
-                        <select id="globalLang" class="bg-gray-700 text-white px-4 py-2 rounded-lg cursor-pointer language-selector">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-globe text-sm"></i>
+                        <select id="globalLang" class="lang-select">
                             <option value="ko">한국어</option>
                             <option value="en">English</option>
                             <option value="zh">中文</option>
@@ -207,81 +315,81 @@ app.get('/', (c) => {
             </div>
         </header>
 
-        <!-- Hero Section -->
-        <section class="hero-gradient text-white py-20">
+        <!-- Hero Section - 간결하게 -->
+        <section class="hero-gradient text-white py-12 md:py-16">
             <div class="container mx-auto px-4 text-center">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6" id="heroTitle">한중 정산의 새로운 기준</h2>
-                <p class="text-xl md:text-2xl mb-8 opacity-90" id="heroSubtitle">빠르고 안전한 크로스보더 결제 서비스</p>
-                <button onclick="scrollToCalculator()" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition" id="heroButton">
+                <h2 class="text-2xl md:text-4xl font-bold mb-3 md:mb-4" id="heroTitle">한중 정산의 새로운 기준</h2>
+                <p class="text-base md:text-xl mb-4 md:mb-6 opacity-90 single-line" id="heroSubtitle">빠르고 안전한 크로스보더 결제 서비스</p>
+                <button onclick="scrollToCalculator()" class="btn-primary bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg transition" id="heroButton">
                     지금 시작하기
                 </button>
             </div>
         </section>
 
-        <!-- Features Section -->
-        <section class="py-16 bg-white">
+        <!-- Features Section - 여백 최소화 -->
+        <section class="py-8 md:py-12 bg-white">
             <div class="container mx-auto px-4">
-                <h3 class="text-3xl font-bold text-center mb-12 text-gray-800" id="featuresTitle">서비스 특징</h3>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="card-hover bg-gray-50 p-8 rounded-xl">
-                        <div class="text-orange-500 text-4xl mb-4">
+                <h3 class="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-800" id="featuresTitle">서비스 특징</h3>
+                <div class="grid grid-features">
+                    <div class="feature-card bg-gray-50 rounded-lg">
+                        <div class="text-orange-500 text-2xl md:text-3xl mb-2">
                             <i class="fas fa-bolt"></i>
                         </div>
-                        <h4 class="text-xl font-bold mb-3 text-gray-800" id="feature1Title">신속한 처리</h4>
-                        <p class="text-gray-600" id="feature1Desc">에스크로 기반 자동 정산으로 빠른 지급 처리</p>
+                        <h4 class="text-sm md:text-base font-bold mb-1 text-gray-800 single-line" id="feature1Title">신속한 처리</h4>
+                        <p class="text-xs md:text-sm text-gray-600 single-line" id="feature1Desc">에스크로 기반 자동 정산</p>
                     </div>
-                    <div class="card-hover bg-gray-50 p-8 rounded-xl">
-                        <div class="text-orange-500 text-4xl mb-4">
+                    <div class="feature-card bg-gray-50 rounded-lg">
+                        <div class="text-orange-500 text-2xl md:text-3xl mb-2">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h4 class="text-xl font-bold mb-3 text-gray-800" id="feature2Title">안전한 거래</h4>
-                        <p class="text-gray-600" id="feature2Desc">AML/KYC 인증 및 거래 모니터링 시스템</p>
+                        <h4 class="text-sm md:text-base font-bold mb-1 text-gray-800 single-line" id="feature2Title">안전한 거래</h4>
+                        <p class="text-xs md:text-sm text-gray-600 single-line" id="feature2Desc">AML/KYC 인증 시스템</p>
                     </div>
-                    <div class="card-hover bg-gray-50 p-8 rounded-xl">
-                        <div class="text-orange-500 text-4xl mb-4">
+                    <div class="feature-card bg-gray-50 rounded-lg">
+                        <div class="text-orange-500 text-2xl md:text-3xl mb-2">
                             <i class="fas fa-dollar-sign"></i>
                         </div>
-                        <h4 class="text-xl font-bold mb-3 text-gray-800" id="feature3Title">합리적 수수료</h4>
-                        <p class="text-gray-600" id="feature3Desc">투명한 수수료 체계와 실시간 환율 적용</p>
+                        <h4 class="text-sm md:text-base font-bold mb-1 text-gray-800 single-line" id="feature3Title">합리적 수수료</h4>
+                        <p class="text-xs md:text-sm text-gray-600 single-line" id="feature3Desc">투명한 수수료 체계</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Calculator Section -->
-        <section class="py-16 bg-gray-50" id="calculator">
-            <div class="container mx-auto px-4 max-w-2xl">
-                <h3 class="text-3xl font-bold text-center mb-12 text-gray-800" id="calcTitle">수수료 계산기</h3>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2" id="calcAmountLabel">송금 금액 (KRW)</label>
-                        <input type="number" id="amount" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="1000000" min="0">
+        <section class="py-8 md:py-12 bg-gray-50" id="calculator">
+            <div class="container mx-auto px-4 max-w-xl">
+                <h3 class="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800" id="calcTitle">수수료 계산기</h3>
+                <div class="bg-white p-4 md:p-6 rounded-xl shadow-lg">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2 text-sm" id="calcAmountLabel">송금 금액 (KRW)</label>
+                        <input type="number" id="amount" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent" placeholder="1000000" min="0">
                     </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-semibold mb-2" id="calcTypeLabel">이용자 유형</label>
-                        <select id="userType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2 text-sm" id="calcTypeLabel">이용자 유형</label>
+                        <select id="userType" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
                             <option value="individual">개인 (1.5% + 0.5%)</option>
                             <option value="freelancer">프리랜서 (3% + 1%)</option>
                             <option value="corporate">법인 (1% + 0.5%)</option>
                         </select>
                     </div>
-                    <button onclick="calculate()" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-semibold transition" id="calcButton">
+                    <button onclick="calculate()" class="w-full btn-primary bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition" id="calcButton">
                         계산하기
                     </button>
                     
-                    <div id="result" class="mt-6 hidden">
-                        <div class="bg-gray-50 p-6 rounded-lg space-y-3">
-                            <div class="flex justify-between">
+                    <div id="result" class="mt-4 hidden">
+                        <div class="bg-gray-50 p-4 rounded-lg space-y-2">
+                            <div class="flex justify-between text-sm">
                                 <span class="text-gray-600" id="resultAmount">송금액</span>
                                 <span class="font-semibold" id="resultAmountValue">0 KRW</span>
                             </div>
-                            <div class="flex justify-between">
+                            <div class="flex justify-between text-sm">
                                 <span class="text-gray-600" id="resultFee">총 수수료</span>
                                 <span class="font-semibold text-orange-600" id="resultFeeValue">0 KRW</span>
                             </div>
-                            <div class="border-t border-gray-300 pt-3 flex justify-between">
-                                <span class="text-gray-800 font-bold" id="resultReceive">수취 예상액</span>
-                                <span class="font-bold text-lg text-green-600" id="resultReceiveValue">0 CNY</span>
+                            <div class="border-t border-gray-300 pt-2 flex justify-between">
+                                <span class="text-gray-800 font-bold text-sm" id="resultReceive">수취 예상액</span>
+                                <span class="font-bold text-base text-green-600" id="resultReceiveValue">0 CNY</span>
                             </div>
                         </div>
                     </div>
@@ -290,36 +398,36 @@ app.get('/', (c) => {
         </section>
 
         <!-- Use Cases Section -->
-        <section class="py-16 bg-white">
+        <section class="py-8 md:py-12 bg-white">
             <div class="container mx-auto px-4">
-                <h3 class="text-3xl font-bold text-center mb-12 text-gray-800" id="useCasesTitle">이용 사례</h3>
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                    <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-lg">
-                        <i class="fas fa-briefcase text-orange-500 text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2 text-gray-800" id="useCase1Title">프리랜서 정산</h4>
-                            <p class="text-gray-600" id="useCase1Desc">한중 간 프리랜서 용역비 안전하게 정산</p>
+                <h3 class="text-xl md:text-2xl font-bold text-center mb-6 text-gray-800" id="useCasesTitle">이용 사례</h3>
+                <div class="grid grid-usecases max-w-3xl mx-auto">
+                    <div class="flex items-start space-x-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                        <i class="fas fa-briefcase text-orange-500 text-lg md:text-xl mt-1"></i>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-sm md:text-base mb-1 text-gray-800 single-line" id="useCase1Title">프리랜서 정산</h4>
+                            <p class="text-xs md:text-sm text-gray-600 single-line" id="useCase1Desc">한중 간 프리랜서 용역비 안전 정산</p>
                         </div>
                     </div>
-                    <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-lg">
-                        <i class="fas fa-shopping-cart text-orange-500 text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2 text-gray-800" id="useCase2Title">상품 공급 대금</h4>
-                            <p class="text-gray-600" id="useCase2Desc">쇼핑몰 공급업체 정산 자동화</p>
+                    <div class="flex items-start space-x-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                        <i class="fas fa-shopping-cart text-orange-500 text-lg md:text-xl mt-1"></i>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-sm md:text-base mb-1 text-gray-800 single-line" id="useCase2Title">상품 공급 대금</h4>
+                            <p class="text-xs md:text-sm text-gray-600 single-line" id="useCase2Desc">쇼핑몰 공급업체 정산 자동화</p>
                         </div>
                     </div>
-                    <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-lg">
-                        <i class="fas fa-graduation-cap text-orange-500 text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2 text-gray-800" id="useCase3Title">유학생 생활비</h4>
-                            <p class="text-gray-600" id="useCase3Desc">학비 및 생활비 정기 송금</p>
+                    <div class="flex items-start space-x-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                        <i class="fas fa-graduation-cap text-orange-500 text-lg md:text-xl mt-1"></i>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-sm md:text-base mb-1 text-gray-800 single-line" id="useCase3Title">유학생 생활비</h4>
+                            <p class="text-xs md:text-sm text-gray-600 single-line" id="useCase3Desc">학비 및 생활비 정기 송금</p>
                         </div>
                     </div>
-                    <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-lg">
-                        <i class="fas fa-handshake text-orange-500 text-2xl mt-1"></i>
-                        <div>
-                            <h4 class="font-bold text-lg mb-2 text-gray-800" id="useCase4Title">법인 거래</h4>
-                            <p class="text-gray-600" id="useCase4Desc">계약 기반 대규모 정산</p>
+                    <div class="flex items-start space-x-3 p-3 md:p-4 bg-gray-50 rounded-lg">
+                        <i class="fas fa-handshake text-orange-500 text-lg md:text-xl mt-1"></i>
+                        <div class="flex-1 min-w-0">
+                            <h4 class="font-bold text-sm md:text-base mb-1 text-gray-800 single-line" id="useCase4Title">법인 거래</h4>
+                            <p class="text-xs md:text-sm text-gray-600 single-line" id="useCase4Desc">계약 기반 대규모 정산</p>
                         </div>
                     </div>
                 </div>
@@ -327,37 +435,38 @@ app.get('/', (c) => {
         </section>
 
         <!-- Footer -->
-        <footer class="bg-gray-800 text-white py-8">
+        <footer class="bg-gray-800 text-white py-6">
             <div class="container mx-auto px-4 text-center">
-                <p id="footerText">&copy; 2026 크로스보더. 모든 권리 보유.</p>
-                <p class="text-gray-400 mt-2 text-sm" id="footerDisclaimer">본 서비스는 외국환 송금이 아닌 거래 기반 정산 플랫폼입니다.</p>
+                <p class="text-sm" id="footerText">&copy; 2026 크로스보더. 모든 권리 보유.</p>
+                <p class="text-gray-400 mt-1 text-xs" id="footerDisclaimer">본 서비스는 외국환 송금이 아닌 거래 기반 정산 플랫폼입니다.</p>
             </div>
         </footer>
 
         <!-- Chatbot Button -->
         <div class="chatbot-button" onclick="toggleChatbot()">
-            <i class="fas fa-comments text-2xl"></i>
+            <i class="fas fa-comments text-xl"></i>
         </div>
 
         <!-- Chatbot Panel -->
         <div class="chatbot-panel" id="chatbotPanel">
-            <div class="bg-orange-500 text-white p-4 flex items-center justify-between rounded-t-2xl">
-                <h3 class="font-bold text-lg" id="chatbotTitle">환전·정산 자동 안내</h3>
-                <div class="flex items-center space-x-3">
-                    <select id="chatLang" class="bg-orange-600 text-white px-3 py-1 rounded cursor-pointer text-sm language-selector">
+            <div class="bg-orange-500 text-white p-3 flex items-center justify-between">
+                <h3 class="font-bold text-base single-line" id="chatbotTitle">환전·정산 자동 안내</h3>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-globe text-xs"></i>
+                    <select id="chatLang" class="lang-select text-xs">
                         <option value="ko">한국어</option>
                         <option value="en">English</option>
                         <option value="zh">中文</option>
                     </select>
-                    <button onclick="toggleChatbot()" class="text-white hover:bg-orange-600 rounded p-1">
+                    <button onclick="toggleChatbot()" class="text-white hover:bg-orange-600 rounded p-1 ml-1">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
             </div>
-            <div class="flex-1 overflow-y-auto p-4" id="faqContainer">
+            <div class="flex-1 overflow-y-auto p-3" id="faqContainer">
                 <div class="text-center text-gray-500 py-8">
-                    <i class="fas fa-spinner fa-spin text-3xl"></i>
-                    <p class="mt-2">Loading...</p>
+                    <i class="fas fa-spinner fa-spin text-2xl"></i>
+                    <p class="mt-2 text-sm">Loading...</p>
                 </div>
             </div>
         </div>
@@ -373,11 +482,11 @@ app.get('/', (c) => {
               heroButton: '지금 시작하기',
               featuresTitle: '서비스 특징',
               feature1Title: '신속한 처리',
-              feature1Desc: '에스크로 기반 자동 정산으로 빠른 지급 처리',
+              feature1Desc: '에스크로 기반 자동 정산',
               feature2Title: '안전한 거래',
-              feature2Desc: 'AML/KYC 인증 및 거래 모니터링 시스템',
+              feature2Desc: 'AML/KYC 인증 시스템',
               feature3Title: '합리적 수수료',
-              feature3Desc: '투명한 수수료 체계와 실시간 환율 적용',
+              feature3Desc: '투명한 수수료 체계',
               calcTitle: '수수료 계산기',
               calcAmountLabel: '송금 금액 (KRW)',
               calcTypeLabel: '이용자 유형',
@@ -387,7 +496,7 @@ app.get('/', (c) => {
               resultReceive: '수취 예상액',
               useCasesTitle: '이용 사례',
               useCase1Title: '프리랜서 정산',
-              useCase1Desc: '한중 간 프리랜서 용역비 안전하게 정산',
+              useCase1Desc: '한중 간 프리랜서 용역비 안전 정산',
               useCase2Title: '상품 공급 대금',
               useCase2Desc: '쇼핑몰 공급업체 정산 자동화',
               useCase3Title: '유학생 생활비',
@@ -404,34 +513,34 @@ app.get('/', (c) => {
             en: {
               headerTitle: 'CrossBorder',
               heroTitle: 'New Standard for Korea-China Settlement',
-              heroSubtitle: 'Fast and Secure Cross-Border Payment Service',
+              heroSubtitle: 'Fast & Secure Cross-Border Payment',
               heroButton: 'Get Started',
               featuresTitle: 'Service Features',
               feature1Title: 'Fast Processing',
-              feature1Desc: 'Quick payment processing with escrow-based automated settlement',
-              feature2Title: 'Secure Transactions',
-              feature2Desc: 'AML/KYC verification and transaction monitoring system',
-              feature3Title: 'Reasonable Fees',
-              feature3Desc: 'Transparent fee structure and real-time exchange rates',
+              feature1Desc: 'Escrow-based settlement',
+              feature2Title: 'Secure',
+              feature2Desc: 'AML/KYC verification',
+              feature3Title: 'Fair Fees',
+              feature3Desc: 'Transparent pricing',
               calcTitle: 'Fee Calculator',
-              calcAmountLabel: 'Transfer Amount (KRW)',
+              calcAmountLabel: 'Amount (KRW)',
               calcTypeLabel: 'User Type',
               calcButton: 'Calculate',
-              resultAmount: 'Transfer Amount',
+              resultAmount: 'Amount',
               resultFee: 'Total Fee',
-              resultReceive: 'Expected Received',
+              resultReceive: 'Expected',
               useCasesTitle: 'Use Cases',
-              useCase1Title: 'Freelancer Settlement',
-              useCase1Desc: 'Secure settlement of freelance service fees between Korea and China',
-              useCase2Title: 'Product Supply Payment',
-              useCase2Desc: 'Automated settlement for shopping mall suppliers',
-              useCase3Title: 'Student Living Expenses',
-              useCase3Desc: 'Regular transfers for tuition and living expenses',
-              useCase4Title: 'Corporate Transactions',
-              useCase4Desc: 'Large-scale contract-based settlement',
+              useCase1Title: 'Freelancer',
+              useCase1Desc: 'Secure freelance payments',
+              useCase2Title: 'Supply Payment',
+              useCase2Desc: 'Automated supplier settlement',
+              useCase3Title: 'Student Expenses',
+              useCase3Desc: 'Tuition and living costs',
+              useCase4Title: 'Corporate',
+              useCase4Desc: 'Large-scale settlements',
               footerText: '© 2026 CrossBorder. All rights reserved.',
-              footerDisclaimer: 'This service is a transaction-based settlement platform, not foreign exchange remittance.',
-              chatbotTitle: 'Exchange & Settlement Auto-Guide',
+              footerDisclaimer: 'Transaction-based settlement platform.',
+              chatbotTitle: 'Exchange & Settlement Guide',
               userTypeIndividual: 'Individual (1.5% + 0.5%)',
               userTypeFreelancer: 'Freelancer (3% + 1%)',
               userTypeCorporate: 'Corporate (1% + 0.5%)'
@@ -439,34 +548,34 @@ app.get('/', (c) => {
             zh: {
               headerTitle: '跨境通',
               heroTitle: '韩中结算的新标准',
-              heroSubtitle: '快速安全的跨境支付服务',
+              heroSubtitle: '快速安全的跨境支付',
               heroButton: '立即开始',
               featuresTitle: '服务特点',
               feature1Title: '快速处理',
-              feature1Desc: '基于托管的自动结算快速支付处理',
-              feature2Title: '安全交易',
-              feature2Desc: 'AML/KYC认证和交易监控系统',
+              feature1Desc: '托管自动结算',
+              feature2Title: '安全',
+              feature2Desc: 'AML/KYC认证',
               feature3Title: '合理费用',
-              feature3Desc: '透明的费用结构和实时汇率',
+              feature3Desc: '透明定价',
               calcTitle: '费用计算器',
-              calcAmountLabel: '转账金额 (KRW)',
+              calcAmountLabel: '金额 (KRW)',
               calcTypeLabel: '用户类型',
               calcButton: '计算',
-              resultAmount: '转账金额',
+              resultAmount: '金额',
               resultFee: '总费用',
-              resultReceive: '预计收到',
+              resultReceive: '预计',
               useCasesTitle: '使用案例',
-              useCase1Title: '自由职业者结算',
-              useCase1Desc: '韩中自由职业服务费的安全结算',
-              useCase2Title: '商品供应付款',
-              useCase2Desc: '购物中心供应商的自动结算',
-              useCase3Title: '留学生生活费',
-              useCase3Desc: '学费和生活费的定期转账',
-              useCase4Title: '企业交易',
-              useCase4Desc: '基于合同的大规模结算',
+              useCase1Title: '自由职业者',
+              useCase1Desc: '安全自由职业支付',
+              useCase2Title: '供应付款',
+              useCase2Desc: '供应商自动结算',
+              useCase3Title: '学生费用',
+              useCase3Desc: '学费和生活费',
+              useCase4Title: '企业',
+              useCase4Desc: '大规模结算',
               footerText: '© 2026 跨境通。保留所有权利。',
-              footerDisclaimer: '本服务是基于交易的结算平台，而非外汇汇款。',
-              chatbotTitle: '兑换·结算自动指南',
+              footerDisclaimer: '基于交易的结算平台。',
+              chatbotTitle: '兑换·结算指南',
               userTypeIndividual: '个人 (1.5% + 0.5%)',
               userTypeFreelancer: '自由职业者 (3% + 1%)',
               userTypeCorporate: '企业 (1% + 0.5%)'
@@ -486,7 +595,7 @@ app.get('/', (c) => {
               renderFAQ();
             } catch (error) {
               console.error('Failed to load FAQ data:', error);
-              document.getElementById('faqContainer').innerHTML = '<p class="text-center text-red-500 py-8">Failed to load FAQ data</p>';
+              document.getElementById('faqContainer').innerHTML = '<p class="text-center text-red-500 py-8 text-sm">Failed to load FAQ</p>';
             }
           }
 
@@ -503,12 +612,12 @@ app.get('/', (c) => {
             let html = '';
             items.forEach(item => {
               html += \`
-                <div class="faq-item py-4" onclick="toggleFAQ('\${item.id}')">
+                <div class="faq-item" onclick="toggleFAQ('\${item.id}')">
                   <div class="flex items-start justify-between">
-                    <div class="flex-1 pr-4">
-                      <h4 class="font-semibold text-gray-800 mb-2">▶ \${item.title[lang]}</h4>
-                      <div class="faq-content text-gray-600 text-sm" id="content-\${item.id}">
-                        <p class="mt-2 pb-2">\${item.content[lang]}</p>
+                    <div class="flex-1 pr-2">
+                      <h4 class="font-semibold text-gray-800 mb-1 text-sm">▶ \${item.title[lang]}</h4>
+                      <div class="faq-content text-gray-600 text-xs" id="content-\${item.id}">
+                        <p class="mt-1 pb-1">\${item.content[lang]}</p>
                       </div>
                     </div>
                   </div>
@@ -519,10 +628,10 @@ app.get('/', (c) => {
             // Pagination
             if (faqData.faq.length > itemsPerPage) {
               const totalPages = Math.ceil(faqData.faq.length / itemsPerPage);
-              html += '<div class="flex justify-center space-x-2 mt-4 pb-4">';
+              html += '<div class="flex justify-center space-x-2 mt-3 pb-3">';
               for (let i = 0; i < totalPages; i++) {
                 const activeClass = i === currentPage ? 'bg-orange-500 text-white' : 'bg-gray-200 text-gray-700';
-                html += \`<button onclick="changePage(\${i})" class="\${activeClass} px-3 py-1 rounded">\${i + 1}</button>\`;
+                html += \`<button onclick="changePage(\${i})" class="\${activeClass} px-2 py-1 rounded text-xs">\${i + 1}</button>\`;
               }
               html += '</div>';
             }
